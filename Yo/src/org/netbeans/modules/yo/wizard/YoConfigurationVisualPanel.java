@@ -1,11 +1,14 @@
 package org.netbeans.modules.yo.wizard;
 
+import java.io.File;
 import java.util.Enumeration;
 import javax.swing.AbstractButton;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import org.netbeans.modules.yo.utils.ShortcutEnterPanel;
 import org.netbeans.modules.yo.utils.WizardUtils;
+import org.openide.filesystems.FileChooserBuilder;
+import org.openide.util.NbPreferences;
 
 public final class YoConfigurationVisualPanel extends JPanel {
 
@@ -47,11 +50,9 @@ public final class YoConfigurationVisualPanel extends JPanel {
 //    public String getDisplayNameTextField() {
 //        return displayNameTextField.getText();
 //    }
-
 //    public String getKeyStrokes() {
 //        return WizardUtils.keyStrokesToLogicalString(keyStrokes);
 //    }
-    
     public String getParameters() {
         return parametersTextField.getText();
     }
@@ -67,8 +68,8 @@ public final class YoConfigurationVisualPanel extends JPanel {
         jLabel3 = new javax.swing.JLabel();
         parametersTextField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        locationField = new javax.swing.JTextField();
+        browseButton = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
         jLabel5 = new javax.swing.JLabel();
 
@@ -78,9 +79,14 @@ public final class YoConfigurationVisualPanel extends JPanel {
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel4, org.openide.util.NbBundle.getMessage(YoConfigurationVisualPanel.class, "YoConfigurationVisualPanel.jLabel4.text")); // NOI18N
 
-        jTextField1.setText(org.openide.util.NbBundle.getMessage(YoConfigurationVisualPanel.class, "YoConfigurationVisualPanel.jTextField1.text")); // NOI18N
+        locationField.setText(org.openide.util.NbBundle.getMessage(YoConfigurationVisualPanel.class, "YoConfigurationVisualPanel.locationField.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jButton1, org.openide.util.NbBundle.getMessage(YoConfigurationVisualPanel.class, "YoConfigurationVisualPanel.jButton1.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(browseButton, org.openide.util.NbBundle.getMessage(YoConfigurationVisualPanel.class, "YoConfigurationVisualPanel.browseButton.text")); // NOI18N
+        browseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                browseButtonActionPerformed(evt);
+            }
+        });
 
         org.openide.awt.Mnemonics.setLocalizedText(jCheckBox1, org.openide.util.NbBundle.getMessage(YoConfigurationVisualPanel.class, "YoConfigurationVisualPanel.jCheckBox1.text")); // NOI18N
 
@@ -97,14 +103,14 @@ public final class YoConfigurationVisualPanel extends JPanel {
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+                    .addComponent(locationField, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(parametersTextField)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
+                    .addComponent(browseButton)
                     .addComponent(jCheckBox1))
                 .addGap(27, 27, 27))
         );
@@ -120,19 +126,37 @@ public final class YoConfigurationVisualPanel extends JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(locationField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(browseButton))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void browseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseButtonActionPerformed
+        File home = new File(System.getProperty("user.home"));
+        //Now build a file chooser and invoke the dialog in one line of code
+        //"user-dir" is our unique key
+        File toAdd = new FileChooserBuilder("user-dir").
+                setTitle("Open File").
+                setDirectoriesOnly(true).
+                setDefaultWorkingDirectory(home).
+                setApproveText("Open").
+                showOpenDialog();
+        //Result will be null if the user clicked cancel or closed the dialog w/o OK
+        if (toAdd != null) {
+            final String path = toAdd.getPath();
+            locationField.setText(path);
+            NbPreferences.forModule(YoConfigurationVisualPanel.class).put("yoProjectFolder", path);
+        }
+    }//GEN-LAST:event_browseButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton browseButton;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField locationField;
     private javax.swing.JTextField parametersTextField;
     // End of variables declaration//GEN-END:variables
 }
