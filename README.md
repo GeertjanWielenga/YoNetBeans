@@ -7,10 +7,12 @@ A key problem when creating IDE tools for Yeoman is that there is no "non-intera
 
 However, despite that, to some extent, tools can work around these problems, e.g., at least the generator name can be provided via a GUI and once the Output opens, the user can press Enter, accepting the defaults.
 
+<h3>Rough List of Prioritized Issues</h3>
+
 <b>P1</b>
 <ul>
-<li>TODO: P1 Register Yo executable in Options window.
 <li>DONE: P1 Create new Yeoman configurations, register in menu, toolbar, shortcuts.</li>
+<li>TODO: P1 Register Yo executable in Options window.
 <li>TODO: P1 "Additional" checkbox in first step of the wizard, figure out how much can be done with it.</li>
 </ul>
 <b>P2</b>
