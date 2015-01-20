@@ -38,6 +38,14 @@ A key problem when creating IDE tools for Yeoman is that there is no "non-intera
 
    Also, there's a new toolbar button that does the same thing:
    
-   ![Alt text](/screenshots/toolbar-yo-1.png?raw=true "Yo menu")
+   ![Alt text](/screenshots/toolbar-yo-1.png?raw=true "Yo toolbar")
    
-The configuration is stored in the user directory and persists across restarts.
+   The configuration is stored in the user directory and persists across restarts.
+   
+4. When the configuration is invoked via one of the GUI items, e.g., keyboard shortcut, menu item, or toolbar button, the Output window opens. 
+
+   ![Alt text](/screenshots/yo-output-1.png?raw=true "Output window 1")
+
+The user can press Enter, accepting all the defaults. 
+
+   ![Alt text](/screenshots/yo-output-2.png?raw=true "Output window 2")
