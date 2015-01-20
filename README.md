@@ -54,7 +54,7 @@ However, despite that, to some extent, tools can work around these problems, e.g
 
    ![Alt text](/screenshots/you-output-2.png?raw=true "Output window 2")
 
-5. When the process is complete, opening it in NetBeans is as simple as pointing to the root folder via this template:
+5. When the process is complete, opening the generated application in NetBeans is as simple as pointing to the root folder via this template:
 
    ![Alt text](/screenshots/yo-open.png?raw=true "Existing project")
 
