@@ -1,25 +1,25 @@
-package org.netbeans.modules.yo;
+package org.netbeans.modules.yo.wizard;
 
 import javax.swing.event.ChangeListener;
 import org.openide.WizardDescriptor;
 import org.openide.util.HelpCtx;
 
-public class YoWizardPanel implements WizardDescriptor.Panel<WizardDescriptor> {
+public class YoGUIRegistrationWizardPanel implements WizardDescriptor.Panel<WizardDescriptor> {
 
     /**
      * The visual component that displays this panel. If you need to access the
      * component from this class, just use getComponent().
      */
-    private YoVisualPanel component;
+    private YoGUIRegistrationVisualPanel component;
 
     // Get the visual component for the panel. In this template, the component
     // is kept separate. This can be more efficient: if the wizard is created
     // but never displayed, or not all panels are displayed, it is better to
     // create only those which really need to be visible.
     @Override
-    public YoVisualPanel getComponent() {
+    public YoGUIRegistrationVisualPanel getComponent() {
         if (component == null) {
-            component = new YoVisualPanel();
+            component = new YoGUIRegistrationVisualPanel();
         }
         return component;
     }
@@ -60,7 +60,7 @@ public class YoWizardPanel implements WizardDescriptor.Panel<WizardDescriptor> {
         // use wiz.putProperty to remember current panel state
         wiz.putProperty("displayName", getComponent().getDisplayNameTextField());
         wiz.putProperty("keyStrokes", getComponent().getKeyStrokes());
-        wiz.putProperty("configuration", getComponent().getParameters());
+//        wiz.putProperty("configuration", getComponent().getParameters());
     }
 
 }
