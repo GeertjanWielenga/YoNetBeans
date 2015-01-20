@@ -13,7 +13,7 @@
 
 1. Click the "Add Yeoman Configuration..." menu item in the Tools menu.
 
-![Alt text](/screenshots/add-yo-config-menu?raw=true "Add Yo configuration")
+![Alt text](/screenshots/add-yo-config-menu.png?raw=true "Add Yo configuration")
 
 2. The...
 
