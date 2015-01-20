@@ -1,5 +1,5 @@
 # YoNetBeans
-<h3>NetBeans tools for Yeoman</h3>
+<h3>NetBeans Tools for Yeoman</h3>
 
 <ul>
 <li>TODO: Register Yo executable in Options window.
@@ -9,4 +9,20 @@
 <li>TODO: Add mechanism for deleting Yeoman configurations.</li>
 </ul>
 
-![Alt text](/screenshots/yoko.png?raw=true "Optional Title")
+<h3>Workflow</h3>
+
+<ol>
+
+<li>Click the "Add Yeoman Configuration..." menu item in the Tools menu.
+
+![Alt text](/screenshots/add-yo-config-menu?raw=true "Add Yo configuration")
+
+</li>
+
+<li>The...
+
+![Alt text](/screenshots/yoko.png?raw=true "Step 1 of wizard")
+
+</li>
+
+</ol>
