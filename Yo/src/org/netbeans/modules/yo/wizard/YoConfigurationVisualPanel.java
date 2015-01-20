@@ -67,14 +67,11 @@ public final class YoConfigurationVisualPanel extends JPanel {
 
         jLabel3 = new javax.swing.JLabel();
         parametersTextField = new javax.swing.JTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
         jLabel5 = new javax.swing.JLabel();
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel3, org.openide.util.NbBundle.getMessage(YoConfigurationVisualPanel.class, "YoConfigurationVisualPanel.jLabel3.text")); // NOI18N
 
         parametersTextField.setText(org.openide.util.NbBundle.getMessage(YoConfigurationVisualPanel.class, "YoConfigurationVisualPanel.parametersTextField.text")); // NOI18N
-
-        org.openide.awt.Mnemonics.setLocalizedText(jCheckBox1, org.openide.util.NbBundle.getMessage(YoConfigurationVisualPanel.class, "YoConfigurationVisualPanel.jCheckBox1.text")); // NOI18N
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel5, org.openide.util.NbBundle.getMessage(YoConfigurationVisualPanel.class, "YoConfigurationVisualPanel.jLabel5.text")); // NOI18N
 
@@ -89,9 +86,7 @@ public final class YoConfigurationVisualPanel extends JPanel {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(parametersTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox1)
-                .addGap(30, 30, 30))
+                .addGap(112, 112, 112))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,14 +95,12 @@ public final class YoConfigurationVisualPanel extends JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(parametersTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox1)
                     .addComponent(jLabel5))
                 .addContainerGap(86, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField parametersTextField;
