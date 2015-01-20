@@ -46,6 +46,6 @@ A key problem when creating IDE tools for Yeoman is that there is no "non-intera
 
    ![Alt text](/screenshots/you-output-1.png?raw=true "Output window 1")
 
-The user can press Enter, accepting all the defaults. 
+   The user can press Enter, accepting all the defaults. 
 
    ![Alt text](/screenshots/you-output-2.png?raw=true "Output window 2")
