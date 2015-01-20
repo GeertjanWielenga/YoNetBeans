@@ -52,4 +52,8 @@ A key problem when creating IDE tools for Yeoman is that there is no "non-intera
 
 5. When the process is complete, opening it in NetBeans is as simple as pointing to the root folder via this template:
 
-   ![Alt text](/screenshots/yo-open.png?raw=true "Step 2 of wizard")
+   ![Alt text](/screenshots/yo-open.png?raw=true "Existing project")
+
+   Then run, use the embedded browser, CSS tools, editors, etc.
+
+   ![Alt text](/screenshots/yo-deploy-2.png?raw=true "Deployed project")
