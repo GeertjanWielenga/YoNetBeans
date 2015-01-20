@@ -9,6 +9,8 @@ import org.netbeans.api.extexecution.ExecutionDescriptor;
 import org.netbeans.api.extexecution.ExecutionService;
 import org.netbeans.api.extexecution.ExternalProcessBuilder;
 import org.netbeans.modules.yo.wizard.YoConfigurationVisualPanel;
+import org.openide.DialogDescriptor;
+import org.openide.DialogDisplayer;
 import org.openide.util.NbPreferences;
 
 public class YoActionFactory {
@@ -41,6 +43,9 @@ public class YoActionFactory {
 //                    JOptionPane.INFORMATION_MESSAGE);
 //            String inputText = inputLine.getInputText();
 //            String yoPath = inputText;
+
+            DialogDescriptor line = new DialogDescriptor(new YoCreationPanel(), "Specify Folder Location");
+            DialogDisplayer.getDefault().createDialog(line).setVisible(true);
             String yoPath = "C:\\\\Users\\\\gwieleng\\\\AppData\\\\Roaming\\\\npm\\\\yo.cmd";
             String userDir = System.getProperty("user.home");
             String yoProjectFolder = NbPreferences.forModule(YoConfigurationVisualPanel.class).get("yoProjectFolder", userDir);
@@ -62,4 +67,5 @@ public class YoActionFactory {
             service.run();
         }
     }
+    
 }
