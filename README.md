@@ -1,10 +1,13 @@
 # YoNetBeans
 <h3>NetBeans Tools for Yeoman</h3>
 
+A key problem with tools for Yeoman is that there is no "non-interactive" or batch mode available. Yeoman generators expect user interaction while Yeoman does not provide any mechanism for interacting programmatically. However, despite that, to some extent, tools can work around this, e.g., at least the generator name can be provided via a GUI and once the Output opens, the user can press Enter, accepting the defaults, which is better than nothing.
+
 <ul>
 <li>TODO: Register Yo executable in Options window.
 <li>DONE: Create new Yeoman configurations, register in menu, toolbar, shortcuts.</li>
 <li>TODO: If parameter does not work/exist, automatically run 'npm install -g generator-' + parameter.</li>
+<li>TODO: "Additional" checkbox in first step of the wizard, figure out how much can be done with it.</li>
 <li>TODO: Add Options window tab for customizing Yeoman configurations.</li>
 <li>TODO: Add mechanism for deleting Yeoman configurations.</li>
 <li>TODO: Validation of GUI components in the wizard.</li>
