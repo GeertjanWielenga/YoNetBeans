@@ -15,7 +15,20 @@
 
    ![Alt text](/screenshots/add-yo-config-menu.png?raw=true "Add Yo configuration")
 
-2. The...
+2. The "New Yeoman Configuration" wizard opens.
 
-![Alt text](/screenshots/yoko.png?raw=true "Step 1 of wizard")
+   ![Alt text](/screenshots/yoko.png?raw=true "Step 1 of wizard")
 
+3. Click Next.
+
+   ![Alt text](/screenshots/yoko2.png?raw=true "Step 2 of wizard")
+
+3. Click Finish. A new menu item for invoking the Yo configuration has been created:
+
+   ![Alt text](/screenshots/menu-yo.png?raw=true "Yo menu")
+
+   Also, there's a new toolbar button that does the same thing:
+   
+   ![Alt text](/screenshots/toolbar-yo-1.png?raw=true "Yo menu")
+   
+The configuration is stored in the user directory and persists across restarts.
