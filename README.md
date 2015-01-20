@@ -11,18 +11,11 @@
 
 <h3>Workflow</h3>
 
-<ol>
-
-<li>Click the "Add Yeoman Configuration..." menu item in the Tools menu.
+1. Click the "Add Yeoman Configuration..." menu item in the Tools menu.
 
 ![Alt text](/screenshots/add-yo-config-menu?raw=true "Add Yo configuration")
 
-</li>
-
-<li>The...
+2. The...
 
 ![Alt text](/screenshots/yoko.png?raw=true "Step 1 of wizard")
 
-</li>
-
-</ol>
