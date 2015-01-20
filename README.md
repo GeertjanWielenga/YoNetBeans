@@ -52,4 +52,4 @@ A key problem when creating IDE tools for Yeoman is that there is no "non-intera
 
 5. When the process is complete, opening it in NetBeans is as simple as pointing to the root folder via this template:
 
-   ![Alt text](/screenshots/yoko-open.png?raw=true "Step 2 of wizard")
+   ![Alt text](/screenshots/yo-open.png?raw=true "Step 2 of wizard")
