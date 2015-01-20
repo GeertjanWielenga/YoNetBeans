@@ -8,16 +8,16 @@ A key problem when creating IDE tools for Yeoman is that there is no "non-intera
 However, despite that, to some extent, tools can work around these problems, e.g., at least the generator name can be provided via a GUI and once the Output opens, the user can press Enter, accepting the defaults.
 
 <ul>
-<li>TODO: Register Yo executable in Options window.
+<li>TODO: P1 Register Yo executable in Options window.
 <li>DONE: Create new Yeoman configurations, register in menu, toolbar, shortcuts.</li>
-<li>TODO: If parameter does not work/exist, automatically run 'npm install -g generator-' + parameter.</li>
-<li>TODO: "Additional" checkbox in first step of the wizard, figure out how much can be done with it.</li>
-<li>TODO: Add Options window tab for customizing Yeoman configurations.</li>
-<li>TODO: Add mechanism for deleting Yeoman configurations.</li>
-<li>TODO: Validation of GUI components in the wizard.</li>
-<li>TODO: Browse button in first step of the wizard, with FileChooserBuilder.</li>
-<li>TODO: Screenscrape http://yeoman.io/generators/ and offer it in the parameter field, which should then be a list.</li>
-<li>TODO: Run 'yo --help' on the command line, like done with 'grails' and 'griffon' in NetBeans and then obtain the available generators and offer them in the parameter field, which should then be a list.</li>
+<li>TODO: P4 If parameter does not work/exist, automatically run 'npm install -g generator-' + parameter.</li>
+<li>TODO: P1 "Additional" checkbox in first step of the wizard, figure out how much can be done with it.</li>
+<li>TODO: P2 Add Options window tab for customizing Yeoman configurations.</li>
+<li>TODO: P2 Add mechanism for deleting Yeoman configurations.</li>
+<li>TODO: P3 Validation of GUI components in the wizard.</li>
+<li>TODO: P3 Browse button in first step of the wizard, with FileChooserBuilder.</li>
+<li>TODO: P4 Screenscrape http://yeoman.io/generators/ and offer it in the parameter field, which should then be a list.</li>
+<li>TODO: P4 Run 'yo --help' on the command line, like done with 'grails' and 'griffon' in NetBeans and then obtain the available generators and offer them in the parameter field, which should then be a list.</li>
 </ul>
 
 <h3>Workflow</h3>
