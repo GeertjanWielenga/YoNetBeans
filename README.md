@@ -40,7 +40,7 @@ A key problem when creating IDE tools for Yeoman is that there is no "non-intera
    
    ![Alt text](/screenshots/toolbar-yo-1.png?raw=true "Yo toolbar")
    
-   The configuration is stored in the user directory and persists across restarts.
+   The configuration is stored in the user directory and persists across restarts. Multiple configurations can be created, i.e., for multiple different Yeoman generators and for multiple variations of the same Yeoman generator.
    
 4. When the configuration is invoked via one of the GUI items, e.g., keyboard shortcut, menu item, or toolbar button, the Output window opens. 
 
