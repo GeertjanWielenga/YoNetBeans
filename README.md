@@ -9,12 +9,13 @@ However, despite that, to some extent, tools can work around these problems, e.g
 
 <h3>Rough List of Prioritized Issues</h3>
 
+Strikethrough means the issue has been fixed.
+
 <b>P1</b>
 <ul>
 <li><strike>Create new Yeoman configurations, register in menu, toolbar, shortcuts.</strike></li>
 <li>Register Yo executable in Options window.</li>
 <li><strike>Let location be specified when action is invoked, not when configuration is created.</strike></li>
-<li>"Additional" checkbox in first step of the wizard, figure out how much can be done with it.</li>
 </ul>
 <b>P2</b>
 <ul>
