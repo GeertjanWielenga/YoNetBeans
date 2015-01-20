@@ -1,6 +1,8 @@
 # YoNetBeans
 <h3>NetBeans Tools for Yeoman</h3>
 
+http://yeoman.io/
+
 A key problem when creating IDE tools for Yeoman is that there is no "non-interactive" or batch mode available. Yeoman generators expect user interaction while Yeoman does not provide any mechanism for interacting programmatically. However, despite that, to some extent, tools can work around this, e.g., at least the generator name can be provided via a GUI and once the Output opens, the user can press Enter, accepting the defaults.
 
 <ul>
