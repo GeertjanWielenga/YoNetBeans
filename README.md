@@ -11,12 +11,21 @@ However, despite that, to some extent, tools can work around these problems, e.g
 <ul>
 <li>TODO: P1 Register Yo executable in Options window.
 <li>DONE: P1 Create new Yeoman configurations, register in menu, toolbar, shortcuts.</li>
-<li>TODO: P4 If parameter does not work/exist, automatically run 'npm install -g generator-' + parameter.</li>
 <li>TODO: P1 "Additional" checkbox in first step of the wizard, figure out how much can be done with it.</li>
+</ul>
+<b>P2</b>
+<ul>
 <li>TODO: P2 Add Options window tab for customizing Yeoman configurations.</li>
 <li>TODO: P2 Add mechanism for deleting Yeoman configurations.</li>
+</ul>
+<b>P3</b>
+<ul>
 <li>TODO: P3 Validation of GUI components in the wizard.</li>
 <li>TODO: P3 Browse button in first step of the wizard, with FileChooserBuilder.</li>
+</ul>
+<b>P4</b>
+<ul>
+<li>TODO: P4 If parameter does not work/exist, automatically run 'npm install -g generator-' + parameter.</li>
 <li>TODO: P4 Screenscrape http://yeoman.io/generators/ and offer it in the parameter field, which should then be a list.</li>
 <li>TODO: P4 Run 'yo --help' on the command line, like done with 'grails' and 'griffon' in NetBeans and then obtain the available generators and offer them in the parameter field, which should then be a list.</li>
 </ul>
