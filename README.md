@@ -3,7 +3,9 @@
 
 Background on what and why Yeoman: http://yeoman.io/
 
-A key problem when creating IDE tools for Yeoman is that there is no "non-interactive" or batch mode available. Yeoman generators expect user interaction while Yeoman does not provide any mechanism for interacting programmatically. However, despite that, to some extent, tools can work around this, e.g., at least the generator name can be provided via a GUI and once the Output opens, the user can press Enter, accepting the defaults.
+A key problem when creating IDE tools for Yeoman is that there is no "non-interactive" or batch mode available. Yeoman generators expect user interaction while Yeoman does not provide any mechanism for interacting programmatically. There's also the problem that each generator can decide for itself the options and arguments it makes available, so these are hard (impossible?) to predict or obtain. 
+
+However, despite that, to some extent, tools can work around these problems, e.g., at least the generator name can be provided via a GUI and once the Output opens, the user can press Enter, accepting the defaults.
 
 <ul>
 <li>TODO: Register Yo executable in Options window.
