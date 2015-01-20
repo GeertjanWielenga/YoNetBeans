@@ -44,8 +44,8 @@ A key problem when creating IDE tools for Yeoman is that there is no "non-intera
    
 4. When the configuration is invoked via one of the GUI items, e.g., keyboard shortcut, menu item, or toolbar button, the Output window opens. 
 
-   ![Alt text](/screenshots/yo-output-1.png?raw=true "Output window 1")
+   ![Alt text](/screenshots/you-output-1.png?raw=true "Output window 1")
 
 The user can press Enter, accepting all the defaults. 
 
-   ![Alt text](/screenshots/yo-output-2.png?raw=true "Output window 2")
+   ![Alt text](/screenshots/you-output-2.png?raw=true "Output window 2")
