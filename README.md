@@ -7,6 +7,8 @@
 <li>TODO: If parameter does not work/exist, automatically run 'npm install -g generator-' + parameter.</li>
 <li>TODO: Add Options window tab for customizing Yeoman configurations.</li>
 <li>TODO: Add mechanism for deleting Yeoman configurations.</li>
+<li>TODO: Validation of GUI components in the wizard.</li>
+<li>TODO: Browse button in first step of the wizard, with FileChooserBuilder.</li>
 </ul>
 
 <h3>Workflow</h3>
@@ -19,11 +21,15 @@
 
    ![Alt text](/screenshots/yoko.png?raw=true "Step 1 of wizard")
 
+   - Parameter: "ko" or "webapp" or any of the other arguments that immediately follows "yo"
+   - Additional: Whether a popup should appear for the value following the parameter, e.g., the name of the artifact.
+   - Location: Folder on disk where "yo" should be run.
+
 3. Click Next.
 
    ![Alt text](/screenshots/yoko2.png?raw=true "Step 2 of wizard")
 
-3. Click Finish. A new menu item for invoking the Yo configuration has been created:
+3. Click Finish. Together with the keyboard shortcut, a new menu item for invoking the Yo configuration has been created:
 
    ![Alt text](/screenshots/menu-yo.png?raw=true "Yo menu")
 
