@@ -13,7 +13,6 @@ However, despite that, to some extent, tools can work around these problems, e.g
 <ul>
 <li>DONE: P1 Create new Yeoman configurations, register in menu, toolbar, shortcuts.</li>
 <li>TODO: P1 Register Yo executable in Options window.
-<li>TODO: P1 Let user specify folder when invoking the configuration, not when creating it.
 <li>TODO: P1 "Additional" checkbox in first step of the wizard, figure out how much can be done with it.</li>
 </ul>
 <b>P2</b>
