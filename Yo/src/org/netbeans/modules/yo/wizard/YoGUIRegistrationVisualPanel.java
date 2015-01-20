@@ -49,13 +49,16 @@ public final class YoGUIRegistrationVisualPanel extends JPanel {
     }
 
     public String getKeyStrokes() {
-        return WizardUtils.keyStrokesToLogicalString(keyStrokes);
+        String keyStrokesToLogicalString = "";
+        if (keyStrokes != null) {
+            keyStrokesToLogicalString = WizardUtils.keyStrokesToLogicalString(keyStrokes);
+        }
+        return keyStrokesToLogicalString;
     }
-    
+
 //    public String getParameters() {
 //        return parametersTextField.getText();
 //    }
-
     @Override
     public String getName() {
         return "GUI Registration";

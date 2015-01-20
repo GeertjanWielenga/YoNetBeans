@@ -128,7 +128,7 @@ public class WizardUtils {
     }
 
     public static String keyStrokesToLogicalString(final KeyStroke[] keyStrokes) {
-        StringBuffer sb = new StringBuffer(keyToLogicalString(keyStrokes [0]));
+        StringBuilder sb = new StringBuilder(keyToLogicalString(keyStrokes [0]));
         int i, k = keyStrokes.length;
         for (i = 1; i < k; i++) {
             sb.append(' ').append(keyToLogicalString((keyStrokes [i])));
