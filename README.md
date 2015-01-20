@@ -16,6 +16,8 @@ However, despite that, to some extent, tools can work around these problems, e.g
 <li>TODO: Add mechanism for deleting Yeoman configurations.</li>
 <li>TODO: Validation of GUI components in the wizard.</li>
 <li>TODO: Browse button in first step of the wizard, with FileChooserBuilder.</li>
+<li>TODO: Screenscrape http://yeoman.io/generators/ and offer it in the parameter field.</li>
+<li>TODO: Run 'yo --help' on the command line, like done with 'grails' and 'griffon' in NetBeans and then obtain the available parameters.</li>
 </ul>
 
 <h3>Workflow</h3>
