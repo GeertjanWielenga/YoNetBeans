@@ -41,11 +41,9 @@ However, despite that, to some extent, tools can work around these problems, e.g
 
 2. The "New Yeoman Configuration" wizard opens.
 
-   ![Alt text](/screenshots/yoko.png?raw=true "Step 1 of wizard")
+   ![Alt text](/screenshots/yoko-v2.png?raw=true "Step 1 of wizard")
 
-   - Parameter: "ko" or "webapp" or any of the other arguments that immediately follows "yo"
-   - Additional: Whether a popup should appear for the value following the parameter, e.g., the name of the artifact.
-   - Location: Folder on disk where "yo" should be run.
+   - Parameter: "ko" or "webapp" or any of the other arguments that immediately follows "yo".
 
 3. Click Next.
 
@@ -61,7 +59,11 @@ However, despite that, to some extent, tools can work around these problems, e.g
    
    The configuration is stored in the user directory and persists across restarts. Multiple configurations can be created, i.e., for multiple different Yeoman generators and for multiple variations of the same Yeoman generator.
    
-4. When the configuration is invoked via one of the GUI items, e.g., keyboard shortcut, menu item, or toolbar button, the Output window opens. 
+4. When the configuration is invoked via one of the GUI items, e.g., keyboard shortcut, menu item, or toolbar button, the following dialog is shown, where a (empty) folder should be specified, where the Yo generator will run:
+
+   ![Alt text](/screenshots/yo-project-folder.png?raw=true "Yo toolbar")
+
+   Next, when OK is clicked, the Output window opens. 
 
    ![Alt text](/screenshots/you-output-1.png?raw=true "Output window 1")
 
