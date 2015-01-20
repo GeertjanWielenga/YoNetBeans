@@ -56,4 +56,4 @@ A key problem when creating IDE tools for Yeoman is that there is no "non-intera
 
    Then run, use the embedded browser, CSS tools, editors, etc.
 
-   ![Alt text](/screenshots/yo-deploy-2.png?raw=true "Deployed project")
+   ![Alt text](/screenshots/yo-deploy-1.png?raw=true "Deployed project")
