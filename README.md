@@ -1,5 +1,5 @@
 # YoNetBeans
-NetBeans tools for Yeoman.
+<h3>NetBeans tools for Yeoman</h3>
 
 <ul>
 <li>TODO: Register Yo executable in Options window.
