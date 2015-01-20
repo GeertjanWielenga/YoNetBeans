@@ -9,7 +9,7 @@ However, despite that, to some extent, tools can work around these problems, e.g
 
 <ul>
 <li>TODO: P1 Register Yo executable in Options window.
-<li>DONE: Create new Yeoman configurations, register in menu, toolbar, shortcuts.</li>
+<li>DONE: P1 Create new Yeoman configurations, register in menu, toolbar, shortcuts.</li>
 <li>TODO: P4 If parameter does not work/exist, automatically run 'npm install -g generator-' + parameter.</li>
 <li>TODO: P1 "Additional" checkbox in first step of the wizard, figure out how much can be done with it.</li>
 <li>TODO: P2 Add Options window tab for customizing Yeoman configurations.</li>
