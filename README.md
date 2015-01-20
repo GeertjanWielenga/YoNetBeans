@@ -12,7 +12,8 @@ However, despite that, to some extent, tools can work around these problems, e.g
 <b>P1</b>
 <ul>
 <li>DONE: P1 Create new Yeoman configurations, register in menu, toolbar, shortcuts.</li>
-<li>TODO: P1 Register Yo executable in Options window.
+<li>TODO: P1 Register Yo executable in Options window.</li>
+<li>TODO: P1 Let location be specified when action is invoked, not when configuration is created.</li>
 <li>TODO: P1 "Additional" checkbox in first step of the wizard, figure out how much can be done with it.</li>
 </ul>
 <b>P2</b>
