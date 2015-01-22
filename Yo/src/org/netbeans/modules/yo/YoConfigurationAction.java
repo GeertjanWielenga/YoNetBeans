@@ -29,15 +29,15 @@ import org.openide.util.Exceptions;
 import org.openide.util.ImageUtilities;
 import org.openide.util.NbBundle.Messages;
 
-@ActionID(
-        category = "Tools",
-        id = "org.netbeans.modules.yo.YoConfigurationAction"
-)
-@ActionRegistration(
-        displayName = "#CTL_DynamicActionCreatorAction"
-)
-@ActionReference(path = "Menu/Tools", position = 0)
-@Messages("CTL_DynamicActionCreatorAction=Add Yeoman Configuration...")
+//@ActionID(
+//        category = "Tools",
+//        id = "org.netbeans.modules.yo.YoConfigurationAction"
+//)
+//@ActionRegistration(
+//        displayName = "#CTL_DynamicActionCreatorAction"
+//)
+//@ActionReference(path = "Menu/Tools", position = 0)
+//@Messages("CTL_DynamicActionCreatorAction=Add Yeoman Configuration...")
 public final class YoConfigurationAction implements ActionListener {
 
     @Override
