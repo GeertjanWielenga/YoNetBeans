@@ -46,8 +46,8 @@ public class YoActionFactory {
 
             DialogDescriptor line = new DialogDescriptor(new YoCreationPanel(), "Specify Folder Location");
             DialogDisplayer.getDefault().createDialog(line).setVisible(true);
-            String yoPath = "C:\\\\Users\\\\gwieleng\\\\AppData\\\\Roaming\\\\npm\\\\yo.cmd";
             String userDir = System.getProperty("user.home");
+            String yoPath = NbPreferences.forModule(YoConfigurationVisualPanel.class).get("yoExecutableLocation", userDir);
             String yoProjectFolder = NbPreferences.forModule(YoConfigurationVisualPanel.class).get("yoProjectFolder", userDir);
             ExternalProcessBuilder processBuilder = new ExternalProcessBuilder(yoPath).
                     addArgument(configuration).
@@ -67,5 +67,5 @@ public class YoActionFactory {
             service.run();
         }
     }
-    
+
 }
