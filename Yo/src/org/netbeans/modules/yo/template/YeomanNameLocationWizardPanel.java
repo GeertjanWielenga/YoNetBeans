@@ -18,25 +18,25 @@ import org.openide.util.NbBundle;
 /**
  * Panel just asking for basic info.
  */
-public class BaseYoWizardPanel implements WizardDescriptor.Panel,
+public class YeomanNameLocationWizardPanel implements WizardDescriptor.Panel,
         WizardDescriptor.ValidatingPanel, WizardDescriptor.FinishablePanel {
 
     private WizardDescriptor wizardDescriptor;
-    private BaseYoPanelVisual component;
+    private YeomanNameLocationPanelVisual component;
 
-    public BaseYoWizardPanel() {
+    public YeomanNameLocationWizardPanel() {
     }
 
     public Component getComponent() {
         if (component == null) {
-            component = new BaseYoPanelVisual(this);
-            component.setName(NbBundle.getMessage(BaseYoWizardPanel.class, "LBL_CreateProjectStep"));
+            component = new YeomanNameLocationPanelVisual(this);
+            component.setName(NbBundle.getMessage(YeomanNameLocationWizardPanel.class, "LBL_CreateProjectStep"));
         }
         return component;
     }
 
     public HelpCtx getHelp() {
-        return new HelpCtx(BaseYoWizardPanel.class);
+        return new HelpCtx(YeomanNameLocationWizardPanel.class);
     }
 
     public boolean isValid() {

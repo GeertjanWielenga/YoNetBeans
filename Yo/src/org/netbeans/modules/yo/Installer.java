@@ -7,10 +7,10 @@ import org.openide.modules.ModuleInstall;
 import org.openide.util.Exceptions;
 
 public class Installer extends ModuleInstall {
-
-    @Override
-    public void restored() {
-        
+//
+//    @Override
+//    public void restored() {
+//        
 //        FileObject yeomanFolder = FileUtil.getConfigFile("Templates/Project/Yeoman");
 //        try {
 //            FileObject fo = yeomanFolder.createData("bla");
@@ -21,7 +21,7 @@ public class Installer extends ModuleInstall {
 //        } catch (IOException ex) {
 //            Exceptions.printStackTrace(ex);
 //        }
-        
-    }
+//        
+//    }
 
 }

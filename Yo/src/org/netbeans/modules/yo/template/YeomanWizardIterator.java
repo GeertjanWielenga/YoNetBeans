@@ -7,12 +7,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.LinkedHashSet;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.zip.ZipEntry;
@@ -28,9 +25,6 @@ import org.netbeans.spi.project.ui.templates.support.Templates;
 import org.openide.WizardDescriptor;
 import org.openide.filesystems.FileObject;
 import org.openide.filesystems.FileUtil;
-import org.openide.filesystems.URLMapper;
-import org.openide.loaders.DataFolder;
-import org.openide.loaders.DataObject;
 import org.openide.util.Exceptions;
 import org.openide.util.NbBundle;
 import org.openide.xml.XMLUtil;
@@ -39,33 +33,33 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-@TemplateRegistration(position = 300, folder = "Project/ClientSide", displayName = "#BaseYo_displayName", description = "BaseYoDescription.html", iconBase = "org/netbeans/modules/yo/yo.png", content = "BaseYoProject.zip")
-@NbBundle.Messages("BaseYo_displayName=HTML5 Application from Yeoman")
-public class BaseYoWizardIterator implements WizardDescriptor./*Progress*/InstantiatingIterator {
+@TemplateRegistration(position = 300, folder = "Project/ClientSide", displayName = "#Yeoman_displayName", description = "../resources/YeomanWizardDescription.html", iconBase = "org/netbeans/modules/yo/resources/yo.png", content = "../resources/EmptyProject.zip")
+@NbBundle.Messages("Yeoman_displayName=HTML5 Application from Yeoman")
+public class YeomanWizardIterator implements WizardDescriptor./*Progress*/InstantiatingIterator {
 
     private int index;
     private WizardDescriptor.Panel[] panels;
     private WizardDescriptor wiz;
     private static final String ENCODING = "UTF-8";
 
-    public BaseYoWizardIterator() {
+    public YeomanWizardIterator() {
     }
 
-    public static BaseYoWizardIterator createIterator() {
-        return new BaseYoWizardIterator();
+    public static YeomanWizardIterator createIterator() {
+        return new YeomanWizardIterator();
     }
 
     private WizardDescriptor.Panel[] createPanels() {
         return new WizardDescriptor.Panel[]{
                     new YeomanSettingsWizardPanel(),
-                    new BaseYoWizardPanel()
+                    new YeomanNameLocationWizardPanel()
                 };
     }
 
     private String[] createSteps() {
         return new String[]{
-                    NbBundle.getMessage(BaseYoWizardIterator.class, "LBL_HelloWorld"),
-                    NbBundle.getMessage(BaseYoWizardIterator.class, "LBL_CreateProjectStep")
+                    NbBundle.getMessage(YeomanWizardIterator.class, "LBL_HelloWorld"),
+                    NbBundle.getMessage(YeomanWizardIterator.class, "LBL_CreateProjectStep")
                 };
     }
 
