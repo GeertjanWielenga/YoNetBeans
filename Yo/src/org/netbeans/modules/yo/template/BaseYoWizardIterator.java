@@ -18,6 +18,7 @@ import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.event.ChangeListener;
 import org.netbeans.api.project.ProjectManager;
 import org.netbeans.api.templates.TemplateRegistration;
@@ -93,48 +94,10 @@ public class BaseYoWizardIterator implements WizardDescriptor./*Progress*/Instan
             ProjectChooser.setProjectsFolder(parent);
         }
 
-        resultSet.add(insertSpecifiedWords());
-
+        String selectedGenerator = (String)wiz.getProperty("selectedGenerator");
+        JOptionPane.showMessageDialog(null, selectedGenerator + " in " + dirF.getPath());
+        
         return resultSet;
-    }
-
-    private FileObject insertSpecifiedWords() throws IOException {
-
-        File projectFolder = FileUtil.normalizeFile((File) wiz.getProperty("projdir"));
-        FileObject targetFolder = FileUtil.toFileObject(new File(projectFolder + "/src/com/toy/anagrams/lib"));
-        URL wordLibraryClass = new URL("nbfs:/SystemFileSystem/Templates/Project/Standard/file/WordLibrary");
-        FileObject fo = URLMapper.findFileObject(wordLibraryClass);
-        DataFolder df = DataFolder.findFolder(targetFolder);
-        DataObject dTemplate = DataObject.find(fo);
-
-        String[] unscrambleds = new String[]{
-            (String) wiz.getProperty("unScrambledWord1"),
-            (String) wiz.getProperty("unScrambledWord2"),
-            (String) wiz.getProperty("unScrambledWord3"),
-            (String) wiz.getProperty("unScrambledWord4"),
-            (String) wiz.getProperty("unScrambledWord5"),
-            (String) wiz.getProperty("unScrambledWord6"),
-            (String) wiz.getProperty("unScrambledWord7")
-        };
-
-        String[] scrambleds = new String[]{
-            (String) wiz.getProperty("scrambledWord1"),
-            (String) wiz.getProperty("scrambledWord2"),
-            (String) wiz.getProperty("scrambledWord3"),
-            (String) wiz.getProperty("scrambledWord4"),
-            (String) wiz.getProperty("scrambledWord5"),
-            (String) wiz.getProperty("scrambledWord6"),
-            (String) wiz.getProperty("scrambledWord7")
-        };
-
-        Map args = new HashMap();
-        args.put("unscrambleds", unscrambleds);
-        args.put("scrambleds", scrambleds);
-
-        DataObject dobj = dTemplate.createFromTemplate(df, "WordLibrary.java", args);
-        FileObject createdFile = dobj.getPrimaryFile();
-        return createdFile;
-
     }
 
     public void initialize(WizardDescriptor wiz) {

@@ -10,17 +10,21 @@ public class YeomanSettingsPanelVisual extends JPanel {
     public YeomanSettingsPanelVisual() {
         initComponents();
         DefaultListModel dlm = new DefaultListModel();
-        for (String yoGenerator : YeomanHelpParser.getAvailableYoGenerators()){
+        for (String yoGenerator : YeomanHelpParser.getAvailableYoGenerators()) {
             dlm.addElement(yoGenerator);
         }
         yoGeneratorList.setModel(dlm);
+    }
+
+    public String getSelectedGenerator() {
+        return (String) yoGeneratorList.getSelectedValue();
     }
 
     @Override
     public String getName() {
         return "Yeoman Settings";
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -60,17 +64,12 @@ public class YeomanSettingsPanelVisual extends JPanel {
     private javax.swing.JList yoGeneratorList;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void addNotify() {
-        super.addNotify();
-    }
-
     boolean valid(WizardDescriptor wizardDescriptor) {
         return true;
     }
 
-     void validate(WizardDescriptor d) throws WizardValidationException {
+    void validate(WizardDescriptor d) throws WizardValidationException {
         // nothing to validate
     }
-    
+
 }

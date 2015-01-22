@@ -10,7 +10,7 @@ import org.openide.WizardDescriptor;
 import org.openide.WizardValidationException;
 import org.openide.util.HelpCtx;
 
-public class YeomanSettingsWizardPanel implements WizardDescriptor.Panel {
+public class YeomanSettingsWizardPanel implements WizardDescriptor.Panel<WizardDescriptor> {
 
     /**
      * The visual component that displays this panel. If you need to access the
@@ -24,13 +24,15 @@ public class YeomanSettingsWizardPanel implements WizardDescriptor.Panel {
     // is kept separate. This can be more efficient: if the wizard is created
     // but never displayed, or not all panels are displayed, it is better to
     // create only those which really need to be visible.
-    public Component getComponent() {
+    @Override
+    public YeomanSettingsPanelVisual getComponent() {
         if (component == null) {
             component = new YeomanSettingsPanelVisual();
         }
         return component;
     }
 
+    @Override
     public HelpCtx getHelp() {
         // Show no Help button for this panel:
         return HelpCtx.DEFAULT_HELP;
@@ -38,6 +40,7 @@ public class YeomanSettingsWizardPanel implements WizardDescriptor.Panel {
     // return new HelpCtx(SampleWizardPanel1.class);
     }
 
+    @Override
     public boolean isValid() {
         getComponent();
         return component.valid(wizardDescriptor);
@@ -51,12 +54,14 @@ public class YeomanSettingsWizardPanel implements WizardDescriptor.Panel {
     private final Set<ChangeListener> listeners = new HashSet<ChangeListener>(1); // or can use ChangeSupport in NB 6.0
 
 
+    @Override
     public final void addChangeListener(ChangeListener l) {
         synchronized (listeners) {
             listeners.add(l);
         }
     }
 
+    @Override
     public final void removeChangeListener(ChangeListener l) {
         synchronized (listeners) {
             listeners.remove(l);
@@ -78,15 +83,19 @@ public class YeomanSettingsWizardPanel implements WizardDescriptor.Panel {
     // settings object will be the WizardDescriptor, so you can use
     // WizardDescriptor.getProperty & putProperty to store information entered
     // by the user.
-    public void readSettings(Object settings) {
+    @Override
+    public void readSettings(WizardDescriptor settings) {
     }
 
-    public void storeSettings(Object settings) {
+    @Override
+    public void storeSettings(WizardDescriptor wiz) {
+        wiz.putProperty("selectedGenerator", getComponent().getSelectedGenerator());
     }
     
-     public void validate() throws WizardValidationException {
+    public void validate() throws WizardValidationException {
         getComponent();
         component.validate(wizardDescriptor);
     }
+    
 }
 
