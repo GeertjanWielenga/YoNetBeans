@@ -7,22 +7,40 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.text.MessageFormat;
-import java.util.Enumeration;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.logging.Level;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.event.ChangeListener;
-import org.netbeans.api.project.ProjectManager;
+import org.netbeans.api.extexecution.ExecutionDescriptor;
+import org.netbeans.api.extexecution.ExecutionService;
+import org.netbeans.api.extexecution.ExternalProcessBuilder;
+import org.netbeans.api.extexecution.input.InputProcessor;
+import org.netbeans.api.extexecution.input.InputProcessors;
+import org.netbeans.api.extexecution.input.LineProcessor;
+import org.netbeans.api.progress.ProgressHandle;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
+import org.openide.WizardDescriptor;
 import org.netbeans.api.templates.TemplateRegistration;
 import org.netbeans.modules.yo.template2.YeomanSettingsWizardPanel;
-import org.netbeans.spi.project.ui.support.ProjectChooser;
-import org.netbeans.spi.project.ui.templates.support.Templates;
-import org.openide.WizardDescriptor;
 import org.openide.filesystems.FileObject;
 import org.openide.filesystems.FileUtil;
 import org.openide.util.Exceptions;
@@ -35,7 +53,7 @@ import org.xml.sax.InputSource;
 
 @TemplateRegistration(position = 300, folder = "Project/ClientSide", displayName = "#Yeoman_displayName", description = "../resources/YeomanWizardDescription.html", iconBase = "org/netbeans/modules/yo/resources/yo.png", content = "../resources/EmptyProject.zip")
 @NbBundle.Messages("Yeoman_displayName=HTML5 Application from Yeoman")
-public class YeomanWizardIterator implements WizardDescriptor./*Progress*/InstantiatingIterator {
+public class YeomanWizardIterator implements WizardDescriptor.ProgressInstantiatingIterator {
 
     private int index;
     private WizardDescriptor.Panel[] panels;
@@ -51,49 +69,135 @@ public class YeomanWizardIterator implements WizardDescriptor./*Progress*/Instan
 
     private WizardDescriptor.Panel[] createPanels() {
         return new WizardDescriptor.Panel[]{
-                    new YeomanSettingsWizardPanel(),
-                    new YeomanNameLocationWizardPanel()
-                };
+            new YeomanSettingsWizardPanel(),
+            new YeomanNameLocationWizardPanel()
+        };
     }
 
     private String[] createSteps() {
         return new String[]{
-                    NbBundle.getMessage(YeomanWizardIterator.class, "LBL_HelloWorld"),
-                    NbBundle.getMessage(YeomanWizardIterator.class, "LBL_CreateProjectStep")
-                };
+            NbBundle.getMessage(YeomanWizardIterator.class, "LBL_HelloWorld"),
+            NbBundle.getMessage(YeomanWizardIterator.class, "LBL_CreateProjectStep")
+        };
     }
 
-    public Set/*<FileObject>*/ instantiate(/*ProgressHandle handle*/) throws IOException {
-        Set<FileObject> resultSet = new LinkedHashSet<FileObject>();
+    @Override
+    public Set instantiate(final ProgressHandle handle) throws IOException {
         File dirF = FileUtil.normalizeFile((File) wiz.getProperty("projdir"));
         dirF.mkdirs();
-
-        FileObject template = Templates.getTemplate(wiz);
-        FileObject dir = FileUtil.toFileObject(dirF);
-        unZipFile(template.getInputStream(), dir);
-
-        // Always open top dir as a project:
-        resultSet.add(dir);
-        // Look for nested projects to open as well:
-        Enumeration<? extends FileObject> e = dir.getFolders(true);
-        while (e.hasMoreElements()) {
-            FileObject subfolder = e.nextElement();
-            if (ProjectManager.getDefault().isProject(subfolder)) {
-                resultSet.add(subfolder);
+        handle.start(100);
+//        final String selectedGenerator = (String) wiz.getProperty("selectedGenerator");
+        final DialogLineProcessor dialogProcessor = new DialogLineProcessor();
+        Callable<Process> callable = new Callable<Process>() {
+            @Override
+            public Process call() throws Exception {
+                Process process
+                        = new ExternalProcessBuilder("C:\\Users\\gwieleng\\AppData\\Roaming\\npm\\yo.cmd").
+                        addArgument("ko:app").
+                        workingDirectory(new File("C:\\Users\\gwieleng\\mydemoapps")).call();
+                dialogProcessor.setWriter(new OutputStreamWriter(process.getOutputStream()));
+                return process;
             }
+        };
+        ExecutionDescriptor descriptor = new ExecutionDescriptor()
+                    .frontWindow(true).inputVisible(true);
+            descriptor = descriptor.outProcessorFactory(new ExecutionDescriptor.InputProcessorFactory() {
+                @Override
+                public InputProcessor newInputProcessor(InputProcessor defaultProcessor) {
+                    return InputProcessors.proxy(defaultProcessor, InputProcessors.bridge(new ProgressLineProcessor(handle, 100, 9)));
+                }
+            });
+            descriptor = descriptor.errProcessorFactory(new ExecutionDescriptor.InputProcessorFactory() {
+                @Override
+                public InputProcessor newInputProcessor(InputProcessor defaultProcessor) {
+                    return InputProcessors.proxy(defaultProcessor, InputProcessors.bridge(dialogProcessor));
+                }
+            });
+            
+        ExecutionService service = ExecutionService.newService(callable, descriptor, "Yeoman");
+        Future<Integer> future = service.run();
+        try {
+            Integer ret = future.get();
+            if (ret != 0) {
+                JOptionPane.showMessageDialog(null, "hello...");
+            }
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        } catch (ExecutionException ex) {
+            Exceptions.printStackTrace(ex.getCause());
+        } finally {
+            handle.progress(100);
+            handle.finish();
         }
-
-        File parent = dirF.getParentFile();
-        if (parent != null && parent.exists()) {
-            ProjectChooser.setProjectsFolder(parent);
-        }
-
-        String selectedGenerator = (String)wiz.getProperty("selectedGenerator");
-        JOptionPane.showMessageDialog(null, selectedGenerator + " in " + dirF.getPath());
-        
-        return resultSet;
+        return Collections.emptySet();
     }
 
+    @Override
+    public Set instantiate() throws IOException {
+        assert false : "Cannot call this method if implements WizardDescriptor.ProgressInstantiatingIterator.";
+        return null;
+    }
+
+    private static class DialogLineProcessor implements LineProcessor {
+
+//        private static final Pattern OVERWRITE_PATTERN
+//                = Pattern.compile("^.*\\s([^\\s]+\\.groovy) already exists\\. Overwrite\\? \\[y/n\\]$"); // NOI18N
+//        private static final Pattern DEFAULT_PACKAGE_PATTERN
+//                = Pattern.compile("^WARNING: You have not specified a package\\. .* Do you want to continue\\? \\(y, n\\)$"); // NOI18N
+        private Writer writer;
+
+        @Override
+        public void processLine(String line) {
+            Writer answerWriter;
+            synchronized (this) {
+                answerWriter = writer;
+            }
+            if (answerWriter != null) {
+//                Matcher matcher = OVERWRITE_PATTERN.matcher(line);
+//                if (matcher.matches()) {
+//                    NotifyDescriptor d = new NotifyDescriptor.Confirmation(
+//                            NbBundle.getMessage(YeomanWizardIterator.class, "MSG_overwrite_file", matcher.group(1)),
+//                            NotifyDescriptor.YES_NO_OPTION);
+//                    try {
+//                        if (DialogDisplayer.getDefault().notify(d) == NotifyDescriptor.YES_OPTION) {
+//                            answerWriter.write("y\n"); // NOI18N
+//                        } else {
+//                            answerWriter.write("n\n"); // NOI18N
+//                        }
+//                        answerWriter.flush();
+//                    } catch (IOException ex) {
+//                        Exceptions.printStackTrace(ex);
+//                    }
+//                } else {
+//                    matcher = DEFAULT_PACKAGE_PATTERN.matcher(line);
+//                    if (matcher.matches()) {
+                        try {
+//                            // user has been warned in wizard
+                            answerWriter.write("y\n"); // NOI18N
+                            answerWriter.flush();
+                        } catch (IOException ex) {
+                            Exceptions.printStackTrace(ex);
+                        }
+//                    }
+//                }
+            }
+        }
+        public void setWriter(Writer writer) {
+            synchronized (this) {
+                this.writer = writer;
+            }
+        }
+        @Override
+        public void close() {
+            // noop
+        }
+        @Override
+        public void reset() {
+            // noop
+        }
+    }
+
+    @Override
     public void initialize(WizardDescriptor wiz) {
         this.wiz = wiz;
         index = 0;
