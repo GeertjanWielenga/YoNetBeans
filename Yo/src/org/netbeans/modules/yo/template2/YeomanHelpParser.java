@@ -14,6 +14,7 @@ import org.netbeans.api.extexecution.input.InputProcessors;
 import org.netbeans.api.extexecution.input.LineProcessor;
 
 public class YeomanHelpParser {
+
     public static List<String> getAvailableYoGenerators() {
         List<String> availableYoGenerators = new ArrayList<String>();
         File userdir = new File(System.getProperty("netbeans.user"));
@@ -48,7 +49,9 @@ public class YeomanHelpParser {
     }
 
     private static class HelpLineProcessor implements LineProcessor {
+
         private final List<String> commands = Collections.synchronizedList(new ArrayList<String>());
+
         @Override
         public void processLine(String line) {
             line = line.trim();
@@ -61,17 +64,19 @@ public class YeomanHelpParser {
                     || line.startsWith("Please"));
             if (keep) {
                 if (line.contains(":")) {
-                    line = "--" + line;
+                    commands.add(line);
                 }
-                commands.add(line);
             }
         }
+
         public List<String> getCommands() {
             return commands;
         }
+
         @Override
         public void close() {
         }
+
         @Override
         public void reset() {
         }

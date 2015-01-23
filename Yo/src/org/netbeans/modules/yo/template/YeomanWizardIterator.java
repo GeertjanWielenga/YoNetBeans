@@ -83,18 +83,19 @@ public class YeomanWizardIterator implements WizardDescriptor.ProgressInstantiat
 
     @Override
     public Set instantiate(final ProgressHandle handle) throws IOException {
-        File dirF = FileUtil.normalizeFile((File) wiz.getProperty("projdir"));
+        final File dirF = FileUtil.normalizeFile((File) wiz.getProperty("projdir"));
         dirF.mkdirs();
         handle.start(100);
-//        final String selectedGenerator = (String) wiz.getProperty("selectedGenerator");
+        final String selectedGenerator = (String) wiz.getProperty("selectedGenerator");
         final DialogLineProcessor dialogProcessor = new DialogLineProcessor();
         Callable<Process> callable = new Callable<Process>() {
             @Override
             public Process call() throws Exception {
                 Process process
                         = new ExternalProcessBuilder("C:\\Users\\gwieleng\\AppData\\Roaming\\npm\\yo.cmd").
-                        addArgument("ko:app").
-                        workingDirectory(new File("C:\\Users\\gwieleng\\mydemoapps")).call();
+                        addArgument(selectedGenerator).
+                        workingDirectory(dirF).call();
+//                        workingDirectory(new File("C:\\Users\\gwieleng\\mydemoapps")).call();
                 dialogProcessor.setWriter(new OutputStreamWriter(process.getOutputStream()));
                 return process;
             }
