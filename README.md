@@ -54,3 +54,4 @@ Strikethrough means the issue has been fixed.
 
    ![Alt text](/screenshots/yo-in-nb-4.png?raw=true "Yo menu")
 
+   The selected Yeoman generator is used to generate the application.
