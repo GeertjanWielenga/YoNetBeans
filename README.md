@@ -38,15 +38,15 @@ Strikethrough means the issue has been fixed.
 
 1. Open the New Project wizard.
 
-   ![Alt text](/screenshots/yo-deploy-1.png?raw=true "Step 1")
+   ![Alt text](/screenshots/yo-in-nb-1.png?raw=true "Step 1")
 
 2. Click Next.
 
-   ![Alt text](/screenshots/yo-deploy-2.png?raw=true "Step 2")
+   ![Alt text](/screenshots/yo-in-nb-2.png?raw=true "Step 2")
 
 3. Click Next.
 
-   ![Alt text](/screenshots/yoko-deploy-3.png?raw=true "Step 3")
+   ![Alt text](/screenshots/yo-in-nb-3.png?raw=true "Step 3")
 
 3. Click Finish. Together with the keyboard shortcut, a new menu item for invoking the Yo configuration has been created:
 
