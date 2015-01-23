@@ -36,19 +36,17 @@ Strikethrough means the issue has been fixed.
 
 <h3>Workflow</h3>
 
-1. Click the "Add Yeoman Configuration..." menu item in the Tools menu.
+1. Open the New Project wizard.
 
-   ![Alt text](/screenshots/add-yo-config-menu.png?raw=true "Add Yo configuration")
+   ![Alt text](/screenshots/yo-deploy-1.png?raw=true "Step 1")
 
-2. The "New Yeoman Configuration" wizard opens.
+2. Click Next.
 
-   ![Alt text](/screenshots/yoko-v2.png?raw=true "Step 1 of wizard")
-
-   - Parameter: "ko" or "webapp" or any of the other arguments that immediately follows "yo".
+   ![Alt text](/screenshots/yo-deploy-2.png?raw=true "Step 2")
 
 3. Click Next.
 
-   ![Alt text](/screenshots/yoko2.png?raw=true "Step 2 of wizard")
+   ![Alt text](/screenshots/yoko-deploy-3.png?raw=true "Step 3")
 
 3. Click Finish. Together with the keyboard shortcut, a new menu item for invoking the Yo configuration has been created:
 
