@@ -36,7 +36,7 @@ Strikethrough means the issue has been fixed.
 
 <h3>Workflow</h3>
 
-1. Open the New Project wizard.
+1. Open the New Project wizard. Choose HTML5 | HTML5 Application from Yeoman.
 
    ![Alt text](/screenshots/yo-in-nb-1.png?raw=true "Step 1")
 
