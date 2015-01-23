@@ -210,7 +210,8 @@ public class YeomanNameLocationPanelVisual extends JPanel implements DocumentLis
 
         String projectName = (String) settings.getProperty("name");
         if (projectName == null) {
-            projectName = "Yeoman";
+            projectName = settings.getProperty("selectedGenerator").toString().replace(":", "-");
+//            projectName = "Yeoman";
         }
         this.projectNameTextField.setText(projectName);
         this.projectNameTextField.selectAll();

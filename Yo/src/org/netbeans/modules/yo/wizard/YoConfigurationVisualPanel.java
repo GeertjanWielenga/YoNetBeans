@@ -59,7 +59,7 @@ public final class YoConfigurationVisualPanel extends JPanel {
 
     @Override
     public String getName() {
-        return "Yeoman Settings";
+        return "Yeoman Generators";
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
