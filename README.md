@@ -44,36 +44,13 @@ Strikethrough means the issue has been fixed.
 
    ![Alt text](/screenshots/yo-in-nb-2.png?raw=true "Step 2")
 
+   Choose one of the installed Yeoman generators. 
+
 3. Click Next.
 
    ![Alt text](/screenshots/yo-in-nb-3.png?raw=true "Step 3")
 
-3. Click Finish. Together with the keyboard shortcut, a new menu item for invoking the Yo configuration has been created:
+3. Click Finish.
 
-   ![Alt text](/screenshots/menu-yo.png?raw=true "Yo menu")
+   ![Alt text](/screenshots/yo-in-nb-4.png?raw=true "Yo menu")
 
-   Also, there's a new toolbar button that does the same thing:
-   
-   ![Alt text](/screenshots/toolbar-yo-1.png?raw=true "Yo toolbar")
-   
-   The configuration is stored in the user directory and persists across restarts. Multiple configurations can be created, i.e., for multiple different Yeoman generators and for multiple variations of the same Yeoman generator.
-   
-4. When the configuration is invoked via one of the GUI items, e.g., keyboard shortcut, menu item, or toolbar button, the following dialog is shown, where a (empty) folder should be specified, where the Yo generator will run:
-
-   ![Alt text](/screenshots/yo-project-folder.png?raw=true "Yo toolbar")
-
-   Next, when OK is clicked, the Output window opens. 
-
-   ![Alt text](/screenshots/you-output-1.png?raw=true "Output window 1")
-
-   The user can press Enter, accepting all the defaults. 
-
-   ![Alt text](/screenshots/you-output-2.png?raw=true "Output window 2")
-
-5. When the process is complete, opening the generated application in NetBeans is as simple as pointing to the root folder via this template:
-
-   ![Alt text](/screenshots/yo-open.png?raw=true "Existing project")
-
-   Then run, use the embedded browser, CSS tools, editors, etc.
-
-   ![Alt text](/screenshots/yo-deploy-1.png?raw=true "Deployed project")
