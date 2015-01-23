@@ -31,7 +31,7 @@ Strikethrough means the issue has been fixed.
 <ul>
 <li>If parameter does not work/exist, automatically run 'npm install -g generator-' + parameter.</li>
 <li>Screenscrape http://yeoman.io/generators/ and offer it in the parameter field, which should then be a list.</li>
-<li>Run 'yo --help' on the command line, like done with 'grails' and 'griffon' in NetBeans and then obtain the available generators and offer them in the parameter field, which should then be a list.</li>
+<li><strike>Run 'yo --help' on the command line, like done with 'grails' and 'griffon' in NetBeans and then obtain the available generators and offer them in the parameter field, which should then be a list.</strike></li>
 </ul>
 
 <h3>Workflow</h3>
