@@ -33,7 +33,7 @@ public class YeomanHelpParser {
         ExecutionService service = ExecutionService.newService(
                 processBuilder,
                 descriptor,
-                "Yeoman");
+                "Yo");
         Future<Integer> task = service.run();
         try {
             if (task.get() == 0) {

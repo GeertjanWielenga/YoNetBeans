@@ -108,7 +108,7 @@ public class YeomanWizardIterator implements WizardDescriptor.ProgressInstantiat
                     return InputProcessors.proxy(defaultProcessor, InputProcessors.bridge(dialogProcessor));
                 }
             });
-            ExecutionService service = ExecutionService.newService(callable, descriptor, "Yeoman");
+            ExecutionService service = ExecutionService.newService(callable, descriptor, "Yo");
             service.run();
         } finally {
             handle.progress(100);
