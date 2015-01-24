@@ -112,9 +112,11 @@ public class YeomanWizardIterator implements WizardDescriptor.ProgressInstantiat
         }
         FileObject dir = FileUtil.toFileObject(dirF);
         dir.refresh();
-        FileObject nbprojectFolder = dir.createFolder("nbproject");
-        FileObject projectXML = nbprojectFolder.createData("project", "xml");
-        FileObject projectProperties = nbprojectFolder.createData("project", "properties");
+        if (dir.getFileObject("project.xml") == null) {
+            FileObject nbprojectFolder = dir.createFolder("nbproject");
+            FileObject projectXML = nbprojectFolder.createData("project", "xml");
+            FileObject projectProperties = nbprojectFolder.createData("project", "properties");
+        }
         return Collections.emptySet();
     }
 
@@ -125,7 +127,9 @@ public class YeomanWizardIterator implements WizardDescriptor.ProgressInstantiat
     }
 
     private static class DialogLineProcessor implements LineProcessor {
+
         private Writer writer;
+
         @Override
         public void processLine(String line) {
             Writer answerWriter;
@@ -141,15 +145,18 @@ public class YeomanWizardIterator implements WizardDescriptor.ProgressInstantiat
                 }
             }
         }
+
         public void setWriter(Writer writer) {
             synchronized (this) {
                 this.writer = writer;
             }
         }
+
         @Override
         public void close() {
             // noop
         }
+
         @Override
         public void reset() {
             // noop
