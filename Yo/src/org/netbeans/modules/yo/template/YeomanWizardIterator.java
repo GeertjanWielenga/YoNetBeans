@@ -26,6 +26,9 @@ import org.netbeans.api.extexecution.input.InputProcessors;
 import org.netbeans.api.extexecution.input.LineProcessor;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
+import org.netbeans.api.project.FileOwnerQuery;
+import org.netbeans.api.project.Project;
+import org.netbeans.api.project.ui.OpenProjects;
 import org.openide.WizardDescriptor;
 import org.netbeans.api.templates.TemplateRegistration;
 import org.netbeans.modules.yo.template2.YeomanSettingsWizardPanel;
@@ -112,10 +115,13 @@ public class YeomanWizardIterator implements WizardDescriptor.ProgressInstantiat
         }
         FileObject dir = FileUtil.toFileObject(dirF);
         dir.refresh();
-        if (dir.getFileObject("project.xml") == null) {
+        if (dir.getFileObject("pom.xml") == null) {
             FileObject nbprojectFolder = dir.createFolder("nbproject");
             FileObject projectXML = nbprojectFolder.createData("project", "xml");
             FileObject projectProperties = nbprojectFolder.createData("project", "properties");
+        } else {
+            Project p = FileOwnerQuery.getOwner(dir);
+            OpenProjects.getDefault().open(new Project[]{p}, true, true);
         }
         return Collections.emptySet();
     }
