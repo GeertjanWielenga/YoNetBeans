@@ -109,6 +109,9 @@ public class YeomanWizardIterator implements WizardDescriptor.ProgressInstantiat
             });
             ExecutionService service = ExecutionService.newService(callable, descriptor, "Yo");
             service.run();
+            
+            //asynchronously be informed of comletion of the service... and then end the process and remove the progress bars?
+            
         } finally {
             handle.progress(100);
             handle.finish();
