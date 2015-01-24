@@ -19,15 +19,10 @@ Strikethrough means the issue has been fixed.
 </ul>
 <b>P2</b>
 <ul>
-<li>Add Options window tab for customizing Yeoman configurations.</li>
-<li>Add mechanism for deleting Yeoman configurations.</li>
-</ul>
-<b>P3</b>
-<ul>
 <li>Validation of GUI components in the wizard.</li>
 <li><strike>Browse button in first step of the wizard, with FileChooserBuilder.</strike></li>
 </ul>
-<b>P4</b>
+<b>P3</b>
 <ul>
 <li>If parameter does not work/exist, automatically run 'npm install -g generator-' + parameter.</li>
 <li>Screenscrape http://yeoman.io/generators/ and offer it in the parameter field, which should then be a list.</li>
