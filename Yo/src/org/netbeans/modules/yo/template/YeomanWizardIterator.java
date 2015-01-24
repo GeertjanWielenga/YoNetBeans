@@ -10,24 +10,13 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.logging.Level;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.event.ChangeListener;
 import org.netbeans.api.extexecution.ExecutionDescriptor;
 import org.netbeans.api.extexecution.ExecutionService;
@@ -36,8 +25,7 @@ import org.netbeans.api.extexecution.input.InputProcessor;
 import org.netbeans.api.extexecution.input.InputProcessors;
 import org.netbeans.api.extexecution.input.LineProcessor;
 import org.netbeans.api.progress.ProgressHandle;
-import org.openide.DialogDisplayer;
-import org.openide.NotifyDescriptor;
+import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.WizardDescriptor;
 import org.netbeans.api.templates.TemplateRegistration;
 import org.netbeans.modules.yo.template2.YeomanSettingsWizardPanel;
@@ -84,28 +72,34 @@ public class YeomanWizardIterator implements WizardDescriptor.ProgressInstantiat
     @Override
     public Set instantiate(final ProgressHandle handle) throws IOException {
         final File dirF = FileUtil.normalizeFile((File) wiz.getProperty("projdir"));
-        dirF.mkdirs();
-        handle.start(100);
         final String selectedGenerator = (String) wiz.getProperty("selectedGenerator");
-        final DialogLineProcessor dialogProcessor = new DialogLineProcessor();
-        Callable<Process> callable = new Callable<Process>() {
-            @Override
-            public Process call() throws Exception {
-                Process process
-                        = new ExternalProcessBuilder("C:\\Users\\gwieleng\\AppData\\Roaming\\npm\\yo.cmd").
-                        addArgument(selectedGenerator).
-                        workingDirectory(dirF).call();
-//                        workingDirectory(new File("C:\\Users\\gwieleng\\mydemoapps")).call();
-                dialogProcessor.setWriter(new OutputStreamWriter(process.getOutputStream()));
-                return process;
-            }
-        };
-        ExecutionDescriptor descriptor = new ExecutionDescriptor()
-                    .frontWindow(true).inputVisible(true);
+        dirF.mkdirs();
+        final ProgressHandle handle1 = ProgressHandleFactory.createHandle(selectedGenerator);
+        handle1.start(100);
+        try {
+            final DialogLineProcessor dialogProcessor = new DialogLineProcessor();
+            Callable<Process> callable = new Callable<Process>() {
+                @Override
+                public Process call() throws Exception {
+                    Process process
+                            = new ExternalProcessBuilder("C:\\Users\\gwieleng\\AppData\\Roaming\\npm\\yo.cmd").
+                            addArgument(selectedGenerator).
+                            workingDirectory(dirF).call();
+                    dialogProcessor.setWriter(new OutputStreamWriter(process.getOutputStream()));
+                    return process;
+                }
+            };
+            ExecutionDescriptor descriptor = new ExecutionDescriptor().
+                    frontWindow(true);
+//                    .
+//                    showProgress(true).
+//                    showSuspended(true).
+//                    inputVisible(true).
+//                    controllable(true);
             descriptor = descriptor.outProcessorFactory(new ExecutionDescriptor.InputProcessorFactory() {
                 @Override
                 public InputProcessor newInputProcessor(InputProcessor defaultProcessor) {
-                    return InputProcessors.proxy(defaultProcessor, InputProcessors.bridge(new ProgressLineProcessor(handle, 100, 9)));
+                    return InputProcessors.proxy(defaultProcessor, InputProcessors.bridge(new ProgressLineProcessor(handle1, 100, 1)));
                 }
             });
             descriptor = descriptor.errProcessorFactory(new ExecutionDescriptor.InputProcessorFactory() {
@@ -114,22 +108,17 @@ public class YeomanWizardIterator implements WizardDescriptor.ProgressInstantiat
                     return InputProcessors.proxy(defaultProcessor, InputProcessors.bridge(dialogProcessor));
                 }
             });
-            
-        ExecutionService service = ExecutionService.newService(callable, descriptor, "Yeoman");
-        Future<Integer> future = service.run();
-        try {
-            Integer ret = future.get();
-            if (ret != 0) {
-                JOptionPane.showMessageDialog(null, "hello...");
-            }
-        } catch (InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        } catch (ExecutionException ex) {
-            Exceptions.printStackTrace(ex.getCause());
+            ExecutionService service = ExecutionService.newService(callable, descriptor, "Yeoman");
+            service.run();
         } finally {
             handle.progress(100);
             handle.finish();
         }
+        FileObject dir = FileUtil.toFileObject(dirF);
+        dir.refresh();
+        FileObject nbprojectFolder = dir.createFolder("nbproject");
+        FileObject projectXML = nbprojectFolder.createData("project", "xml");
+        FileObject projectProperties = nbprojectFolder.createData("project", "properties");
         return Collections.emptySet();
     }
 
@@ -140,13 +129,7 @@ public class YeomanWizardIterator implements WizardDescriptor.ProgressInstantiat
     }
 
     private static class DialogLineProcessor implements LineProcessor {
-
-//        private static final Pattern OVERWRITE_PATTERN
-//                = Pattern.compile("^.*\\s([^\\s]+\\.groovy) already exists\\. Overwrite\\? \\[y/n\\]$"); // NOI18N
-//        private static final Pattern DEFAULT_PACKAGE_PATTERN
-//                = Pattern.compile("^WARNING: You have not specified a package\\. .* Do you want to continue\\? \\(y, n\\)$"); // NOI18N
         private Writer writer;
-
         @Override
         public void processLine(String line) {
             Writer answerWriter;
@@ -154,33 +137,12 @@ public class YeomanWizardIterator implements WizardDescriptor.ProgressInstantiat
                 answerWriter = writer;
             }
             if (answerWriter != null) {
-//                Matcher matcher = OVERWRITE_PATTERN.matcher(line);
-//                if (matcher.matches()) {
-//                    NotifyDescriptor d = new NotifyDescriptor.Confirmation(
-//                            NbBundle.getMessage(YeomanWizardIterator.class, "MSG_overwrite_file", matcher.group(1)),
-//                            NotifyDescriptor.YES_NO_OPTION);
-//                    try {
-//                        if (DialogDisplayer.getDefault().notify(d) == NotifyDescriptor.YES_OPTION) {
-//                            answerWriter.write("y\n"); // NOI18N
-//                        } else {
-//                            answerWriter.write("n\n"); // NOI18N
-//                        }
-//                        answerWriter.flush();
-//                    } catch (IOException ex) {
-//                        Exceptions.printStackTrace(ex);
-//                    }
-//                } else {
-//                    matcher = DEFAULT_PACKAGE_PATTERN.matcher(line);
-//                    if (matcher.matches()) {
-                        try {
-//                            // user has been warned in wizard
-                            answerWriter.write("y\n"); // NOI18N
-                            answerWriter.flush();
-                        } catch (IOException ex) {
-                            Exceptions.printStackTrace(ex);
-                        }
-//                    }
-//                }
+                try {
+                    answerWriter.write("y\n"); // NOI18N
+                    answerWriter.flush();
+                } catch (IOException ex) {
+                    Exceptions.printStackTrace(ex);
+                }
             }
         }
         public void setWriter(Writer writer) {
@@ -214,7 +176,6 @@ public class YeomanWizardIterator implements WizardDescriptor.ProgressInstantiat
                 steps[i] = c.getName();
             }
             if (c instanceof JComponent) { // assume Swing components
-
                 JComponent jc = (JComponent) c;
                 // Step #.
                 jc.putClientProperty("WizardPanel_contentSelectedIndex", new Integer(i));
@@ -329,6 +290,6 @@ public class YeomanWizardIterator implements WizardDescriptor.ProgressInstantiat
             Exceptions.printStackTrace(ex);
             writeFile(str, fo);
         }
-
     }
+
 }
