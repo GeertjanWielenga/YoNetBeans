@@ -89,7 +89,7 @@ public class YeomanWizardIterator implements WizardDescriptor.ProgressInstantiat
                     return process;
                 }
             };
-            ExecutionDescriptor descriptor = new ExecutionDescriptor().
+            ExecutionDescriptor descriptor = new ExecutionDescriptor().inputVisible(true).
                     frontWindow(true);
 //                    .
 //                    showProgress(true).
