@@ -29,11 +29,11 @@ public class YeomanHelpParser {
                     public InputProcessor newInputProcessor(InputProcessor defaultProcessor) {
                         return InputProcessors.bridge(lineProcessor);
                     }
-                });
+            });
         ExecutionService service = ExecutionService.newService(
                 processBuilder,
                 descriptor,
-                "Yo");
+                "Yeoman");
         Future<Integer> task = service.run();
         try {
             if (task.get() == 0) {

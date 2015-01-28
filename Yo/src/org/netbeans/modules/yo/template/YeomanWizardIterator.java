@@ -11,9 +11,12 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.text.MessageFormat;
 import java.util.Collections;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.swing.JComponent;
@@ -24,17 +27,22 @@ import org.netbeans.api.extexecution.ExternalProcessBuilder;
 import org.netbeans.api.extexecution.input.InputProcessor;
 import org.netbeans.api.extexecution.input.InputProcessors;
 import org.netbeans.api.extexecution.input.LineProcessor;
+import org.netbeans.api.extexecution.print.ConvertedLine;
+import org.netbeans.api.extexecution.print.LineConvertor;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
+import org.netbeans.api.progress.ProgressUtils;
 import org.netbeans.api.project.FileOwnerQuery;
 import org.netbeans.api.project.Project;
 import org.netbeans.api.project.ui.OpenProjects;
 import org.openide.WizardDescriptor;
 import org.netbeans.api.templates.TemplateRegistration;
 import org.netbeans.modules.yo.template2.YeomanSettingsWizardPanel;
+import org.openide.awt.StatusDisplayer;
 import org.openide.filesystems.FileObject;
 import org.openide.filesystems.FileUtil;
 import org.openide.util.Exceptions;
+import org.openide.util.ImageUtilities;
 import org.openide.util.NbBundle;
 import org.openide.xml.XMLUtil;
 import org.w3c.dom.Document;
@@ -74,17 +82,32 @@ public class YeomanWizardIterator implements WizardDescriptor.ProgressInstantiat
 
     @Override
     public Set instantiate(final ProgressHandle handle) throws IOException {
+        ProgressUtils.showProgressDialogAndRun(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    createYoApp(handle);
+                } catch (IOException ex) {
+                    Exceptions.printStackTrace(ex);
+                }
+            }
+        }, "Creating Yeoman application...");
+        return Collections.emptySet();
+    }
+
+    private Process process;
+
+    private void createYoApp(final ProgressHandle handle) throws IOException {
         final File dirF = FileUtil.normalizeFile((File) wiz.getProperty("projdir"));
         final String selectedGenerator = (String) wiz.getProperty("selectedGenerator");
         dirF.mkdirs();
-        final ProgressHandle handle1 = ProgressHandleFactory.createHandle(selectedGenerator);
-        handle1.start(100);
+        handle.start(100);
         try {
             final DialogLineProcessor dialogProcessor = new DialogLineProcessor();
             Callable<Process> callable = new Callable<Process>() {
                 @Override
                 public Process call() throws Exception {
-                    Process process
+                    process
                             = new ExternalProcessBuilder("C:\\Users\\gwieleng\\AppData\\Roaming\\npm\\yo.cmd").
                             addArgument(selectedGenerator).
                             workingDirectory(dirF).call();
@@ -92,26 +115,42 @@ public class YeomanWizardIterator implements WizardDescriptor.ProgressInstantiat
                     return process;
                 }
             };
-            ExecutionDescriptor descriptor = new ExecutionDescriptor().
-                    inputVisible(true).
-                    frontWindow(true);
-            descriptor = descriptor.outProcessorFactory(new ExecutionDescriptor.InputProcessorFactory() {
-                @Override
-                public InputProcessor newInputProcessor(InputProcessor defaultProcessor) {
-                    return InputProcessors.proxy(defaultProcessor, InputProcessors.bridge(new ProgressLineProcessor(handle1, 100, 1)));
-                }
-            });
-            descriptor = descriptor.errProcessorFactory(new ExecutionDescriptor.InputProcessorFactory() {
-                @Override
-                public InputProcessor newInputProcessor(InputProcessor defaultProcessor) {
-                    return InputProcessors.proxy(defaultProcessor, InputProcessors.bridge(dialogProcessor));
-                }
-            });
-            ExecutionService service = ExecutionService.newService(callable, descriptor, "Yo");
-            service.run();
-            
-            //asynchronously be informed of comletion of the service... and then end the process and remove the progress bars?
-            
+            ExecutionDescriptor descriptor = new ExecutionDescriptor()
+                    .frontWindow(true)
+                    .inputVisible(true)
+                    .postExecution(new Runnable() {
+                        @Override
+                        public void run() {
+                            StatusDisplayer.getDefault().setStatusText("Created: " + dirF.getPath());
+                        }
+                    })
+                    .outConvertorFactory(new ExecutionDescriptor.LineConvertorFactory() {
+                        @Override
+                        public LineConvertor newLineConvertor() {
+                            return new Numbered();
+                        }
+                    })
+                    .outProcessorFactory(new ExecutionDescriptor.InputProcessorFactory() {
+                        @Override
+                        public InputProcessor newInputProcessor(InputProcessor defaultProcessor) {
+                            return InputProcessors.proxy(defaultProcessor, InputProcessors.bridge(new ProgressLineProcessor(process, handle, 100, 1)));
+                        }
+                    })
+                    .errProcessorFactory(new ExecutionDescriptor.InputProcessorFactory() {
+                        @Override
+                        public InputProcessor newInputProcessor(InputProcessor defaultProcessor) {
+                            return InputProcessors.proxy(defaultProcessor, InputProcessors.bridge(dialogProcessor));
+                        }
+                    });
+            ExecutionService service = ExecutionService.newService(callable, descriptor, "Yeoman");
+            Future<Integer> future = service.run();
+            try {
+                future.get();
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+            } catch (ExecutionException ex) {
+                Exceptions.printStackTrace(ex.getCause());
+            }
         } finally {
             handle.progress(100);
             handle.finish();
@@ -126,13 +165,24 @@ public class YeomanWizardIterator implements WizardDescriptor.ProgressInstantiat
             Project p = FileOwnerQuery.getOwner(dir);
             OpenProjects.getDefault().open(new Project[]{p}, true, true);
         }
-        return Collections.emptySet();
     }
 
     @Override
     public Set instantiate() throws IOException {
         assert false : "Cannot call this method if implements WizardDescriptor.ProgressInstantiatingIterator.";
         return null;
+    }
+
+    private class Numbered implements LineConvertor {
+
+        private int number;
+
+        @Override
+        public List<ConvertedLine> convert(String line) {
+            List<ConvertedLine> result = Collections.singletonList(ConvertedLine.forText(number + ": " + line, null));
+            number++;
+            return result;
+        }
     }
 
     private static class DialogLineProcessor implements LineProcessor {
@@ -192,6 +242,7 @@ public class YeomanWizardIterator implements WizardDescriptor.ProgressInstantiat
                 // Step #.
                 jc.putClientProperty("WizardPanel_contentSelectedIndex", new Integer(i));
                 // Step name (actually the whole list for reference).
+                jc.putClientProperty(WizardDescriptor.PROP_IMAGE, ImageUtilities.loadImage("org/netbeans/modules/yo/resources/yeoman-large.png", true));
                 jc.putClientProperty("WizardPanel_contentData", steps);
             }
         }
