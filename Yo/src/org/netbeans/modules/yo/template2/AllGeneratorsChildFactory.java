@@ -8,13 +8,14 @@ import java.net.URL;
 import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.swing.JOptionPane;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.netbeans.api.progress.ProgressUtils;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import org.openide.nodes.BeanNode;
 import org.openide.nodes.ChildFactory;
 import org.openide.nodes.Children;
@@ -103,14 +104,19 @@ class AllGeneratorsChildFactory extends ChildFactory<YeomanGeneratorObject> {
                 return new Action[]{new AbstractAction("Install") {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        JOptionPane.showMessageDialog(null, "Installed...");
-                        YeomanGeneratorObject ygo = getLookup().lookup(YeomanGeneratorObject.class);
-                        ygo.setInstalled(true);
+                        String name = getLookup().lookup(YeomanGeneratorObject.class).getName();
+                        NotifyDescriptor.Message m = new NotifyDescriptor.Message("Want to run 'npm install -g " + name + "'?");
+                        Object o = DialogDisplayer.getDefault().notify(m);
+                        if (o == NotifyDescriptor.OK_OPTION) {
+                            NodeRunner.installYeomanGenerator(name);
+                            YeomanGeneratorObject ygo = getLookup().lookup(YeomanGeneratorObject.class);
+                            ygo.setInstalled(true);
+                        }
                     }
                 }};
             }
         }
-        
+
         @Override
         public Image getIcon(int type) {
             if (getLookup().lookup(YeomanGeneratorObject.class).isInstalled()) {
