@@ -15,8 +15,18 @@ import org.netbeans.api.extexecution.input.LineProcessor;
 
 public class YeomanHelpParser {
 
+    static List<String> availableYoGenerators = new ArrayList<String>();
+    static List<String> availableYoCommands = new ArrayList<String>();
+
     public static List<String> getAvailableYoGenerators() {
-        List<String> availableYoGenerators = new ArrayList<String>();
+        return availableYoGenerators;
+    }
+
+    public static List<String> getAvailableYoCommands() {
+        return availableYoCommands;
+    }
+
+    public static void parseYoHelp() {
         File userdir = new File(System.getProperty("netbeans.user"));
         ExternalProcessBuilder processBuilder
                 = new ExternalProcessBuilder("C:\\Users\\gwieleng\\AppData\\Roaming\\npm\\yo.cmd").
@@ -29,7 +39,7 @@ public class YeomanHelpParser {
                     public InputProcessor newInputProcessor(InputProcessor defaultProcessor) {
                         return InputProcessors.bridge(lineProcessor);
                     }
-            });
+                });
         ExecutionService service = ExecutionService.newService(
                 processBuilder,
                 descriptor,
@@ -37,19 +47,22 @@ public class YeomanHelpParser {
         Future<Integer> task = service.run();
         try {
             if (task.get() == 0) {
+                for (String generator : lineProcessor.getGenerators()) {
+                    availableYoGenerators.add(generator);
+                }
                 for (String command : lineProcessor.getCommands()) {
-                    availableYoGenerators.add(command);
+                    availableYoCommands.add(command);
                 }
             }
         } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
         } catch (ExecutionException ex) {
         }
-        return availableYoGenerators;
     }
 
     private static class HelpLineProcessor implements LineProcessor {
 
+        private final List<String> generators = Collections.synchronizedList(new ArrayList<String>());
         private final List<String> commands = Collections.synchronizedList(new ArrayList<String>());
 
         @Override
@@ -65,12 +78,18 @@ public class YeomanHelpParser {
             if (keep) {
                 if (line.contains(":")) {
                     commands.add(line);
+                } else {
+                    generators.add(line);
                 }
             }
         }
 
         public List<String> getCommands() {
             return commands;
+        }
+
+        public List<String> getGenerators() {
+            return generators;
         }
 
         @Override

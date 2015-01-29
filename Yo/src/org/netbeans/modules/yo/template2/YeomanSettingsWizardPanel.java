@@ -89,7 +89,7 @@ public class YeomanSettingsWizardPanel implements WizardDescriptor.Panel<WizardD
 
     @Override
     public void storeSettings(WizardDescriptor wiz) {
-        wiz.putProperty("selectedGenerator", getComponent().getSelectedGenerator());
+//        wiz.putProperty("selectedGenerator", getComponent().getSelectedGenerator());
     }
     
     public void validate() throws WizardValidationException {

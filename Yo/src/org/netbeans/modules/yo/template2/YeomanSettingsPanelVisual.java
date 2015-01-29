@@ -1,6 +1,6 @@
 package org.netbeans.modules.yo.template2;
 
-import javax.swing.DefaultListModel;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import org.openide.WizardDescriptor;
 import org.openide.WizardValidationException;
@@ -9,61 +9,40 @@ public class YeomanSettingsPanelVisual extends JPanel {
 
     public YeomanSettingsPanelVisual() {
         initComponents();
-        DefaultListModel dlm = new DefaultListModel();
-        for (String yoGenerator : YeomanHelpParser.getAvailableYoGenerators()) {
-            dlm.addElement(yoGenerator);
-        }
-        yoGeneratorList.setModel(dlm);
-    }
-
-    public String getSelectedGenerator() {
-        return (String) yoGeneratorList.getSelectedValue();
-    }
-
-    @Override
-    public String getName() {
-        return "Yeoman Generators";
+//        setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+//        add(new InstalledCommandPanel());
+//        add(new AllGeneratorsPanel());
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        yoGeneratorList = new javax.swing.JList();
+        installedCommandPanel1 = new org.netbeans.modules.yo.template2.InstalledCommandPanel();
+        allGeneratorsPanel1 = new org.netbeans.modules.yo.template2.AllGeneratorsPanel();
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel1, org.openide.util.NbBundle.getMessage(YeomanSettingsPanelVisual.class, "YeomanSettingsPanelVisual.jLabel1.text")); // NOI18N
+        installedCommandPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), org.openide.util.NbBundle.getMessage(YeomanSettingsPanelVisual.class, "YeomanSettingsPanelVisual.installedCommandPanel1.border.title"))); // NOI18N
 
-        jScrollPane1.setViewportView(yoGeneratorList);
+        allGeneratorsPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), org.openide.util.NbBundle.getMessage(YeomanSettingsPanelVisual.class, "YeomanSettingsPanelVisual.allGeneratorsPanel1.border.title"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 18, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
+            .addComponent(installedCommandPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(allGeneratorsPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(installedCommandPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(allGeneratorsPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList yoGeneratorList;
+    private org.netbeans.modules.yo.template2.AllGeneratorsPanel allGeneratorsPanel1;
+    private org.netbeans.modules.yo.template2.InstalledCommandPanel installedCommandPanel1;
     // End of variables declaration//GEN-END:variables
 
     boolean valid(WizardDescriptor wizardDescriptor) {
