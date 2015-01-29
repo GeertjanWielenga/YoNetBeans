@@ -15,6 +15,7 @@ public class YeomanGeneratorObject {
 
     public YeomanGeneratorObject(String name) {
         this.name = name;
+        this.installed = true;
     }
     
     public YeomanGeneratorObject(int stars,boolean installed,String name, String description, String owner, String website) {
@@ -25,8 +26,8 @@ public class YeomanGeneratorObject {
         this.website = website;
         this.stars = stars;
     }
-    
-    public boolean getInstalled() {
+
+    public boolean isInstalled() {
         return installed;
     }
     
@@ -80,14 +81,6 @@ public class YeomanGeneratorObject {
 
     public void setForks(int forks) {
         this.forks = forks;
-    }
-
-    public boolean isInstalled() {
-        return installed;
-    }
-
-    public void setInstalled(boolean installed) {
-        this.installed = installed;
     }
 
 }

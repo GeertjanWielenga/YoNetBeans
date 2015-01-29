@@ -1,5 +1,6 @@
 package org.netbeans.modules.yo.template2;
 
+import java.awt.Image;
 import java.beans.IntrospectionException;
 import java.io.IOException;
 import java.net.URL;
@@ -10,8 +11,12 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.openide.nodes.BeanNode;
 import org.openide.nodes.ChildFactory;
+import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.Exceptions;
+import org.openide.util.ImageUtilities;
+import org.openide.util.Lookup;
+import org.openide.util.lookup.Lookups;
 
 class YeomanChildFactory extends ChildFactory<YeomanGeneratorObject> {
 
@@ -72,8 +77,22 @@ class YeomanChildFactory extends ChildFactory<YeomanGeneratorObject> {
     private class YeomanGeneratorNode extends BeanNode {
 
         public YeomanGeneratorNode(YeomanGeneratorObject bean) throws IntrospectionException {
-            super(bean);
-            setDisplayName(bean.getName());
+            super(bean, Children.LEAF, Lookups.singleton(bean));
+            if (type == 1) {
+                setDisplayName(bean.getName());
+                setShortDescription(bean.getWebsite());
+            } else {
+                setDisplayName("");
+            }
+        }
+
+        @Override
+        public Image getIcon(int type) {
+            if (getLookup().lookup(YeomanGeneratorObject.class).isInstalled()) {
+                return ImageUtilities.loadImage("org/netbeans/modules/yo/resources/yo.png");
+            } else {
+                return ImageUtilities.loadImage("org/netbeans/modules/yo/resources/download.png");
+            }
         }
 
     }

@@ -43,7 +43,7 @@ public class YeomanSettingsWizardPanel implements WizardDescriptor.Panel<WizardD
     @Override
     public boolean isValid() {
         getComponent();
-        return component.valid(wizardDescriptor);
+        return true;
 
     // If it depends on some condition (form filled out...), then:
     // return someCondition();
@@ -94,7 +94,6 @@ public class YeomanSettingsWizardPanel implements WizardDescriptor.Panel<WizardD
     
     public void validate() throws WizardValidationException {
         getComponent();
-        component.validate(wizardDescriptor);
     }
     
 }

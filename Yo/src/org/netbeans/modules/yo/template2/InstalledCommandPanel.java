@@ -1,7 +1,11 @@
 package org.netbeans.modules.yo.template2;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 import org.openide.explorer.ExplorerManager;
 import org.openide.explorer.view.BeanTreeView;
 import org.openide.nodes.AbstractNode;
@@ -14,7 +18,9 @@ public class InstalledCommandPanel extends JPanel implements ExplorerManager.Pro
 
     public InstalledCommandPanel() {
         setLayout(new BorderLayout());
+        setBorder(new TitledBorder(new LineBorder(Color.BLACK, 1), "Installed Commands"));
         BeanTreeView installedCommandsView = new BeanTreeView();
+        installedCommandsView.setPreferredSize(new Dimension(this.getWidth(),100));
         installedCommandsView.setRootVisible(false);
         Children kids = Children.create(new YeomanChildFactory(true, 1), true);
         Node rootNode = new AbstractNode(kids);
