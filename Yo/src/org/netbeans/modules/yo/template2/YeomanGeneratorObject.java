@@ -31,6 +31,10 @@ public class YeomanGeneratorObject {
     public boolean isInstalled() {
         return installed;
     }
+
+    public void setInstalled(boolean installed) {
+        this.installed = installed;
+    }
     
     public String getName() {
         return name;

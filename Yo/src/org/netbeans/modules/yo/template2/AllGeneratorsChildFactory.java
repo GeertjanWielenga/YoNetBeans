@@ -1,10 +1,14 @@
 package org.netbeans.modules.yo.template2;
 
 import java.awt.Image;
+import java.awt.event.ActionEvent;
 import java.beans.IntrospectionException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JOptionPane;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -91,6 +95,22 @@ class AllGeneratorsChildFactory extends ChildFactory<YeomanGeneratorObject> {
             setDisplayName("");
         }
 
+        @Override
+        public Action[] getActions(boolean context) {
+            if (getLookup().lookup(YeomanGeneratorObject.class).isInstalled()) {
+                return new Action[]{};
+            } else {
+                return new Action[]{new AbstractAction("Install") {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        JOptionPane.showMessageDialog(null, "Installed...");
+                        YeomanGeneratorObject ygo = getLookup().lookup(YeomanGeneratorObject.class);
+                        ygo.setInstalled(true);
+                    }
+                }};
+            }
+        }
+        
         @Override
         public Image getIcon(int type) {
             if (getLookup().lookup(YeomanGeneratorObject.class).isInstalled()) {
