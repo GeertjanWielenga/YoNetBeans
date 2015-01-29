@@ -1,6 +1,5 @@
 package org.netbeans.modules.yo.template2;
 
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import org.openide.WizardDescriptor;
 import org.openide.WizardValidationException;
@@ -9,9 +8,6 @@ public class YeomanSettingsPanelVisual extends JPanel {
 
     public YeomanSettingsPanelVisual() {
         initComponents();
-//        setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-//        add(new InstalledCommandPanel());
-//        add(new AllGeneratorsPanel());
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
