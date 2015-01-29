@@ -22,7 +22,7 @@ public class InstalledCommandPanel extends JPanel implements ExplorerManager.Pro
         BeanTreeView installedCommandsView = new BeanTreeView();
         installedCommandsView.setPreferredSize(new Dimension(this.getWidth(),100));
         installedCommandsView.setRootVisible(false);
-        Children kids = Children.create(new YeomanChildFactory(true, 1), true);
+        Children kids = Children.create(new InstalledCommandChildFactory(), true);
         Node rootNode = new AbstractNode(kids);
         add(installedCommandsView, BorderLayout.CENTER);
         em.setRootContext(rootNode);

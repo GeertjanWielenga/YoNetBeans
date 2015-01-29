@@ -18,13 +18,14 @@ public class YeomanGeneratorObject {
         this.installed = true;
     }
     
-    public YeomanGeneratorObject(int stars,boolean installed,String name, String description, String owner, String website) {
+    public YeomanGeneratorObject(int stars,boolean installed,String name, String description, String owner, String website, String ownerWebsite) {
         this.installed = installed;
         this.name = name;
         this.description = description;
         this.owner = owner;
         this.website = website;
         this.stars = stars;
+        this.ownerWebsite = ownerWebsite;
     }
 
     public boolean isInstalled() {
@@ -45,10 +46,6 @@ public class YeomanGeneratorObject {
 
     public String getOwnerWebsite() {
         return ownerWebsite;
-    }
-
-    public void setOwnerWebsite(String ownerWebsite) {
-        this.ownerWebsite = ownerWebsite;
     }
 
     public String getWebsite() {
