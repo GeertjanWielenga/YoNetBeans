@@ -5,15 +5,21 @@ import javax.swing.JPanel;
 
 class YeomanSettingsPanelVisual extends JPanel {
 
+    InstalledCommandPanel icp;
     public YeomanSettingsPanelVisual() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        add(new InstalledCommandPanel());
+         icp = new InstalledCommandPanel();
+        add(icp);
         add(new AllGeneratorsPanel());
     }
 
     @Override
     public String getName() {
         return "Yeoman Generators";
+    }
+
+    public String getSelectedGenerator() {
+        return icp.getSelectedGenerator();
     }
     
 }

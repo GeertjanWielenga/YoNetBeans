@@ -15,6 +15,8 @@ import org.openide.nodes.Node;
 public class InstalledCommandPanel extends JPanel implements ExplorerManager.Provider {
 
     private final ExplorerManager em = new ExplorerManager();
+    private String selectedGenerator;
+    private final InstalledCommandChildFactory iccf;
 
     public InstalledCommandPanel() {
         setLayout(new BorderLayout());
@@ -22,7 +24,8 @@ public class InstalledCommandPanel extends JPanel implements ExplorerManager.Pro
         BeanTreeView installedCommandsView = new BeanTreeView();
         installedCommandsView.setPreferredSize(new Dimension(this.getWidth(),100));
         installedCommandsView.setRootVisible(false);
-        Children kids = Children.create(new InstalledCommandChildFactory(), true);
+        iccf = new InstalledCommandChildFactory();
+        Children kids = Children.create(iccf, true);
         Node rootNode = new AbstractNode(kids);
         add(installedCommandsView, BorderLayout.CENTER);
         em.setRootContext(rootNode);
@@ -31,6 +34,10 @@ public class InstalledCommandPanel extends JPanel implements ExplorerManager.Pro
     @Override
     public ExplorerManager getExplorerManager() {
         return em;
+    }
+
+    public String getSelectedGenerator() {
+        return iccf.getSelectedGenerator();
     }
     
 }
