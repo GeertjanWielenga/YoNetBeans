@@ -1,8 +1,11 @@
 package org.netbeans.modules.yo.options;
 
 import java.io.File;
+import java.util.List;
 import org.netbeans.modules.yo.wizard.YoConfigurationVisualPanel;
+import org.openide.awt.StatusDisplayer;
 import org.openide.filesystems.FileChooserBuilder;
+import org.openide.util.NbBundle;
 import org.openide.util.NbPreferences;
 
 final class YeomanPanel extends javax.swing.JPanel {
@@ -24,14 +27,11 @@ final class YeomanPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        locationField = new javax.swing.JTextField();
         yoFolderBrowseButton = new javax.swing.JButton();
+        locationField = new javax.swing.JTextField();
+        yeomanPathBrowseButton = new javax.swing.JButton();
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel1, org.openide.util.NbBundle.getMessage(YeomanPanel.class, "YeomanPanel.jLabel1.text")); // NOI18N
-
-        locationField.setEditable(false);
-        locationField.setBackground(new java.awt.Color(204, 204, 204));
-        locationField.setText(org.openide.util.NbBundle.getMessage(YeomanPanel.class, "YeomanPanel.locationField.text")); // NOI18N
 
         org.openide.awt.Mnemonics.setLocalizedText(yoFolderBrowseButton, org.openide.util.NbBundle.getMessage(YeomanPanel.class, "YeomanPanel.yoFolderBrowseButton.text")); // NOI18N
         yoFolderBrowseButton.addActionListener(new java.awt.event.ActionListener() {
@@ -40,28 +40,35 @@ final class YeomanPanel extends javax.swing.JPanel {
             }
         });
 
+        locationField.setText(org.openide.util.NbBundle.getMessage(YeomanPanel.class, "YeomanPanel.locationField.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(yeomanPathBrowseButton, org.openide.util.NbBundle.getMessage(YeomanPanel.class, "YeomanPanel.yeomanPathBrowseButton.text")); // NOI18N
+        yeomanPathBrowseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                yeomanPathBrowseButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(locationField, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                .addComponent(locationField, javax.swing.GroupLayout.DEFAULT_SIZE, 17, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(yoFolderBrowseButton)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(yeomanPathBrowseButton))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(yoFolderBrowseButton)
-                    .addComponent(locationField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel1)
+                .addComponent(locationField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(yoFolderBrowseButton)
+                .addComponent(yeomanPathBrowseButton))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -81,6 +88,19 @@ final class YeomanPanel extends javax.swing.JPanel {
             locationField.setText(path);
         }
     }//GEN-LAST:event_yoFolderBrowseButtonActionPerformed
+
+    public static final String EXECUTABLE_NAME = "yo"; // NOI18N
+    public static final String EXECUTABLE_LONG_NAME = EXECUTABLE_NAME + FileUtils.getScriptExtension(true, false);
+
+    @NbBundle.Messages("YeomanOptionsPanel.executable.notFound=No Yo executable found.")
+    private void yeomanPathBrowseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yeomanPathBrowseButtonActionPerformed
+        List<String> sassPaths = FileUtils.findFileOnUsersPath(EXECUTABLE_LONG_NAME, EXECUTABLE_NAME);
+        if (sassPaths.isEmpty()) {
+            StatusDisplayer.getDefault().setStatusText(Bundle.YeomanOptionsPanel_executable_notFound());
+        } else {
+            locationField.setText(sassPaths.get(0));
+        }
+    }//GEN-LAST:event_yeomanPathBrowseButtonActionPerformed
 
     void load() {
         // TODO read settings and initialize GUI
@@ -112,6 +132,7 @@ final class YeomanPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField locationField;
+    private javax.swing.JButton yeomanPathBrowseButton;
     private javax.swing.JButton yoFolderBrowseButton;
     // End of variables declaration//GEN-END:variables
 }
