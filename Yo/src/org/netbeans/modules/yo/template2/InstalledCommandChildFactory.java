@@ -6,6 +6,7 @@ import java.beans.IntrospectionException;
 import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import org.netbeans.api.annotations.common.StaticResource;
 import org.openide.awt.StatusDisplayer;
 import org.openide.nodes.BeanNode;
 import org.openide.nodes.ChildFactory;
@@ -18,6 +19,9 @@ import org.openide.util.lookup.Lookups;
 class InstalledCommandChildFactory extends ChildFactory<YeomanGeneratorObject> {
 
     private String selectedGenerator = "";
+    
+    @StaticResource
+    private static final String YO = "org/netbeans/modules/yo/resources/YoIcon.png";
 
     public InstalledCommandChildFactory() {
         YeomanHelpParser.parseYoHelp();
@@ -67,7 +71,7 @@ class InstalledCommandChildFactory extends ChildFactory<YeomanGeneratorObject> {
 
         @Override
         public Image getIcon(int type) {
-            return ImageUtilities.loadImage("org/netbeans/modules/yo/resources/yo.png");
+            return ImageUtilities.loadImage(YO);
         }
     }
 

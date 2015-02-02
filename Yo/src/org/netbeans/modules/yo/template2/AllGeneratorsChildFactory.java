@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+import org.netbeans.api.annotations.common.StaticResource;
 import org.netbeans.api.progress.ProgressUtils;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
@@ -22,6 +23,7 @@ import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.Exceptions;
 import org.openide.util.ImageUtilities;
+import org.openide.util.NbBundle;
 import org.openide.util.lookup.Lookups;
 
 class AllGeneratorsChildFactory extends ChildFactory<YeomanGeneratorObject> {
@@ -29,6 +31,11 @@ class AllGeneratorsChildFactory extends ChildFactory<YeomanGeneratorObject> {
     private static final String URL = "https://yeoman-generator-list.herokuapp.com";
     private boolean filter = false;
     private String filterMessage = "Displaying all generators...";
+    
+    @StaticResource
+    private static final String DOWNLOAD = "org/netbeans/modules/yo/resources/DownloadIcon.png";
+    @StaticResource
+    private static final String YO = "org/netbeans/modules/yo/resources/YoIcon.png";
 
     @Override
     protected boolean createKeys(final List<YeomanGeneratorObject> list) {
@@ -120,9 +127,9 @@ class AllGeneratorsChildFactory extends ChildFactory<YeomanGeneratorObject> {
         @Override
         public Image getIcon(int type) {
             if (getLookup().lookup(YeomanGeneratorObject.class).isInstalled()) {
-                return ImageUtilities.loadImage("org/netbeans/modules/yo/resources/yo.png");
+                return ImageUtilities.loadImage(YO);
             } else {
-                return ImageUtilities.loadImage("org/netbeans/modules/yo/resources/download.png");
+                return ImageUtilities.loadImage(DOWNLOAD);
             }
         }
 
