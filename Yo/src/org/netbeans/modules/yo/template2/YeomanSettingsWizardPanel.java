@@ -10,15 +10,15 @@ import org.openide.WizardDescriptor;
 import org.openide.WizardValidationException;
 import org.openide.util.HelpCtx;
 
-public class YeomanSettingsWizardPanel implements WizardDescriptor.Panel<WizardDescriptor> {
+public class YeomanSettingsWizardPanel implements WizardDescriptor.ValidatingPanel<WizardDescriptor> {
 
     /**
      * The visual component that displays this panel. If you need to access the
      * component from this class, just use getComponent().
      */
     private YeomanSettingsPanelVisual component;
-        private WizardDescriptor wizardDescriptor;
-
+    private WizardDescriptor wizardDescriptor;
+    private boolean isValid = true;
 
     // Get the visual component for the panel. In this template, the component
     // is kept separate. This can be more efficient: if the wizard is created
@@ -37,22 +37,15 @@ public class YeomanSettingsWizardPanel implements WizardDescriptor.Panel<WizardD
         // Show no Help button for this panel:
         return HelpCtx.DEFAULT_HELP;
     // If you have context help:
-    // return new HelpCtx(SampleWizardPanel1.class);
+        // return new HelpCtx(SampleWizardPanel1.class);
     }
 
     @Override
     public boolean isValid() {
-        getComponent();
-        return true;
-
-    // If it depends on some condition (form filled out...), then:
-    // return someCondition();
-    // and when this condition changes (last form field filled in...) then:
-    // fireChangeEvent();
-    // and uncomment the complicated stuff below.
+        return isValid;
     }
-    private final Set<ChangeListener> listeners = new HashSet<ChangeListener>(1); // or can use ChangeSupport in NB 6.0
 
+    private final Set<ChangeListener> listeners = new HashSet<ChangeListener>(1); // or can use ChangeSupport in NB 6.0
 
     @Override
     public final void addChangeListener(ChangeListener l) {
@@ -91,10 +84,14 @@ public class YeomanSettingsWizardPanel implements WizardDescriptor.Panel<WizardD
     public void storeSettings(WizardDescriptor wiz) {
         wiz.putProperty("selectedGenerator", getComponent().getSelectedGenerator());
     }
-    
-    public void validate() throws WizardValidationException {
-        getComponent();
-    }
-    
-}
 
+    @Override
+    public void validate() throws WizardValidationException {
+        String name = getComponent().getSelectedGenerator();
+        if (name.equals("")) {
+//            isValid = false;
+            throw new WizardValidationException(null, "Select a Yeoman command.", null);
+        }
+    }
+
+}

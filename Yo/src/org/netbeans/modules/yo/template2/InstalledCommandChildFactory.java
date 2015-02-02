@@ -16,7 +16,8 @@ import org.openide.util.ImageUtilities;
 import org.openide.util.lookup.Lookups;
 
 class InstalledCommandChildFactory extends ChildFactory<YeomanGeneratorObject> {
-    private String selectedGenerator;
+
+    private String selectedGenerator = "";
 
     public InstalledCommandChildFactory() {
         YeomanHelpParser.parseYoHelp();
@@ -46,11 +47,13 @@ class InstalledCommandChildFactory extends ChildFactory<YeomanGeneratorObject> {
     }
 
     private class YeomanCommandNod3 extends BeanNode {
+
         public YeomanCommandNod3(YeomanGeneratorObject bean) throws IntrospectionException {
             super(bean, Children.LEAF, Lookups.singleton(bean));
             setDisplayName(bean.getName());
             setShortDescription(bean.getWebsite());
         }
+
         @Override
         public Action getPreferredAction() {
             return new AbstractAction() {
@@ -61,6 +64,7 @@ class InstalledCommandChildFactory extends ChildFactory<YeomanGeneratorObject> {
                 }
             };
         }
+
         @Override
         public Image getIcon(int type) {
             return ImageUtilities.loadImage("org/netbeans/modules/yo/resources/yo.png");
