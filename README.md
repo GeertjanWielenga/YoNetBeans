@@ -14,7 +14,7 @@ Strikethrough means the issue has been fixed.
 <b>P1</b>
 <ul>
 <li><strike>Create new Yeoman configurations, register in menu, toolbar, shortcuts.</strike></li>
-<li>Register Yo executable in Options window.</li>
+<li><strike>Register Yo executable in Options window.<strike></li>
 <li><strike>Let location be specified when action is invoked, not when configuration is created.</strike></li>
 </ul>
 <b>P2</b>
