@@ -44,13 +44,13 @@ Strikethrough means the issue has been fixed.
 
    ![Alt text](/screenshots/yo-in-nb-2.png?raw=true "Step 2")
 
-   Choose one of the installed Yeoman generators. 
+   Choose one of the installed Yeoman commands. Generators can also be installed. 
 
 4. Click Next.
 
    ![Alt text](/screenshots/yo-in-nb-3.png?raw=true "Step 3")
 
-5. Click Finish.
+5. Click Finish. The application is generated via Yeoman and opens in the IDE.
 
    ![Alt text](/screenshots/yo-in-nb-4.png?raw=true "Yo menu")
 
