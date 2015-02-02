@@ -19,7 +19,7 @@ Strikethrough means the issue has been fixed.
 </ul>
 <b>P2</b>
 <ul>
-<li>Validation of GUI components in the wizard.</li>
+<li><strike>Validation of GUI components in the wizard.</strike></li>
 <li><strike>Browse button in first step of the wizard, with FileChooserBuilder.</strike></li>
 </ul>
 <b>P3</b>
