@@ -31,21 +31,26 @@ Strikethrough means the issue has been fixed.
 
 <h3>Workflow</h3>
 
-1. Open the New Project wizard. Choose HTML5 | HTML5 Application from Yeoman.
+1. Set the yo.cmd in the Options window.
+
+   ![Alt text](/screenshots/options.png?raw=true "Step 1")
+
+
+2. Open the New Project wizard. Choose HTML5 | HTML5 Application from Yeoman.
 
    ![Alt text](/screenshots/yo-in-nb-1.png?raw=true "Step 1")
 
-2. Click Next.
+3. Click Next.
 
    ![Alt text](/screenshots/yo-in-nb-2.png?raw=true "Step 2")
 
    Choose one of the installed Yeoman generators. 
 
-3. Click Next.
+4. Click Next.
 
    ![Alt text](/screenshots/yo-in-nb-3.png?raw=true "Step 3")
 
-3. Click Finish.
+5. Click Finish.
 
    ![Alt text](/screenshots/yo-in-nb-4.png?raw=true "Yo menu")
 
