@@ -14,7 +14,7 @@ Strikethrough means the issue has been fixed.
 <b>P1</b>
 <ul>
 <li><strike>Create new Yeoman configurations, register in menu, toolbar, shortcuts.</strike></li>
-<li><strike>Register Yo executable in Options window.<strike></li>
+<li><strike>Register Yo executable in Options window.</strike></li>
 <li><strike>Let location be specified when action is invoked, not when configuration is created.</strike></li>
 </ul>
 <b>P2</b>
@@ -24,8 +24,8 @@ Strikethrough means the issue has been fixed.
 </ul>
 <b>P3</b>
 <ul>
-<li>If parameter does not work/exist, automatically run 'npm install -g generator-' + parameter.</li>
-<li>Screenscrape http://yeoman.io/generators/ and offer it in the parameter field, which should then be a list.</li>
+<li><strike>If parameter does not work/exist, automatically run 'npm install -g generator-' + parameter.</strike></li>
+<li><strike>Screenscrape http://yeoman.io/generators/ and offer it in the parameter field, which should then be a list.</strike></li>
 <li><strike>Run 'yo --help' on the command line, like done with 'grails' and 'griffon' in NetBeans and then obtain the available generators and offer them in the parameter field, which should then be a list.</strike></li>
 </ul>
 
