@@ -52,5 +52,5 @@ Strikethrough means the issue has been fixed.
 
 5. Click Finish. The application is generated via Yeoman and opens in the IDE.
 
-   ![Alt text](/screenshots/yo-in-nb-4.png?raw=true "Yo menu")
+   ![Alt text](/screenshots/yo-in-nb-5.png?raw=true "Yo menu")
 
