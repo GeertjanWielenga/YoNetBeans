@@ -13,6 +13,11 @@ Strikethrough means the issue has been fixed.
 
 <b>P1</b>
 <ul>
+<li>Try the plugin on Linux and Mac OSX.</li>
+<li>Move the Yeoman generator installation panel into the Options window.</li>
+<li>Reuse Node.js npm executable definition from NetBeans IDE.</li>
+<li>Somehow enable the user to interact with the generator's input requirements.</li>
+<li>Try out all the generators and all the commands.</li>
 <li><strike>Create new Yeoman configurations, register in menu, toolbar, shortcuts.</strike></li>
 <li><strike>Register Yo executable in Options window.</strike></li>
 <li><strike>Let location be specified when action is invoked, not when configuration is created.</strike></li>
