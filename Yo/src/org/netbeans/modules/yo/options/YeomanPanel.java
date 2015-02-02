@@ -13,7 +13,7 @@ final class YeomanPanel extends javax.swing.JPanel {
 
     private final YeomanOptionsPanelController controller;
 
-    public static final String EXECUTABLE_NAME = "yo"; // NOI18N
+    public static final String EXECUTABLE_NAME = "yo.cmd"; // NOI18N
     public static final String EXECUTABLE_LONG_NAME = EXECUTABLE_NAME + FileUtils.getScriptExtension(true, false);
     
     YeomanPanel(YeomanOptionsPanelController controller) {

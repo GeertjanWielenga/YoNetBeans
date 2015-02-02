@@ -38,12 +38,14 @@ import org.netbeans.api.project.ui.OpenProjects;
 import org.openide.WizardDescriptor;
 import org.netbeans.api.templates.TemplateRegistration;
 import org.netbeans.modules.yo.template2.YeomanSettingsWizardPanel;
+import org.netbeans.modules.yo.wizard.YoConfigurationVisualPanel;
 import org.openide.awt.StatusDisplayer;
 import org.openide.filesystems.FileObject;
 import org.openide.filesystems.FileUtil;
 import org.openide.util.Exceptions;
 import org.openide.util.ImageUtilities;
 import org.openide.util.NbBundle;
+import org.openide.util.NbPreferences;
 import org.openide.xml.XMLUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -107,8 +109,9 @@ public class YeomanWizardIterator implements WizardDescriptor.ProgressInstantiat
             Callable<Process> callable = new Callable<Process>() {
                 @Override
                 public Process call() throws Exception {
+                    String yo = NbPreferences.forModule(YoConfigurationVisualPanel.class).get("yoExecutableLocation", "");
                     process
-                            = new ExternalProcessBuilder("C:\\Users\\gwieleng\\AppData\\Roaming\\npm\\yo.cmd").
+                            = new ExternalProcessBuilder(yo).
                             addArgument(selectedGenerator).
                             workingDirectory(dirF).call();
                     dialogProcessor.setWriter(new OutputStreamWriter(process.getOutputStream()));

@@ -12,6 +12,8 @@ import org.netbeans.api.extexecution.ExternalProcessBuilder;
 import org.netbeans.api.extexecution.input.InputProcessor;
 import org.netbeans.api.extexecution.input.InputProcessors;
 import org.netbeans.api.extexecution.input.LineProcessor;
+import org.netbeans.modules.yo.wizard.YoConfigurationVisualPanel;
+import org.openide.util.NbPreferences;
 
 public class YeomanHelpParser {
 
@@ -28,8 +30,9 @@ public class YeomanHelpParser {
 
     public static void parseYoHelp() {
         File userdir = new File(System.getProperty("netbeans.user"));
+        String yo = NbPreferences.forModule(YoConfigurationVisualPanel.class).get("yoExecutableLocation", "");
         ExternalProcessBuilder processBuilder
-                = new ExternalProcessBuilder("C:\\Users\\gwieleng\\AppData\\Roaming\\npm\\yo.cmd").
+                = new ExternalProcessBuilder(yo).
                 addArgument("--help").
                 workingDirectory(userdir);
         final HelpLineProcessor lineProcessor = new HelpLineProcessor();
