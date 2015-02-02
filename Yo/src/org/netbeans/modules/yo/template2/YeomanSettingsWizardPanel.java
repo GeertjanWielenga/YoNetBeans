@@ -90,7 +90,7 @@ public class YeomanSettingsWizardPanel implements WizardDescriptor.ValidatingPan
         String name = getComponent().getSelectedGenerator();
         if (name.equals("")) {
 //            isValid = false;
-            throw new WizardValidationException(null, "Select a Yeoman command.", null);
+            throw new WizardValidationException(null, "Double-click to select a Yeoman command.", null);
         }
     }
 
