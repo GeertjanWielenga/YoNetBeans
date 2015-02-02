@@ -15,9 +15,8 @@ final class YeomanPanel extends javax.swing.JPanel {
     YeomanPanel(YeomanOptionsPanelController controller) {
         this.controller = controller;
         initComponents();
-        // TODO listen to changes in form fields and call controller.changed()
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,7 +27,7 @@ final class YeomanPanel extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         yoFolderBrowseButton = new javax.swing.JButton();
-        locationField = new javax.swing.JTextField();
+        yeomanPathTextField = new javax.swing.JTextField();
         yeomanPathBrowseButton = new javax.swing.JButton();
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel1, org.openide.util.NbBundle.getMessage(YeomanPanel.class, "YeomanPanel.jLabel1.text")); // NOI18N
@@ -40,7 +39,7 @@ final class YeomanPanel extends javax.swing.JPanel {
             }
         });
 
-        locationField.setText(org.openide.util.NbBundle.getMessage(YeomanPanel.class, "YeomanPanel.locationField.text")); // NOI18N
+        yeomanPathTextField.setText(org.openide.util.NbBundle.getMessage(YeomanPanel.class, "YeomanPanel.yeomanPathTextField.text")); // NOI18N
 
         org.openide.awt.Mnemonics.setLocalizedText(yeomanPathBrowseButton, org.openide.util.NbBundle.getMessage(YeomanPanel.class, "YeomanPanel.yeomanPathBrowseButton.text")); // NOI18N
         yeomanPathBrowseButton.addActionListener(new java.awt.event.ActionListener() {
@@ -56,7 +55,7 @@ final class YeomanPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(locationField, javax.swing.GroupLayout.DEFAULT_SIZE, 17, Short.MAX_VALUE)
+                .addComponent(yeomanPathTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 17, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(yoFolderBrowseButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -66,27 +65,35 @@ final class YeomanPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(jLabel1)
-                .addComponent(locationField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(yeomanPathTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(yoFolderBrowseButton)
                 .addComponent(yeomanPathBrowseButton))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    @NbBundle.Messages("YeomanOptionsPanel.browse.title=Select Sass")
     private void yoFolderBrowseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yoFolderBrowseButtonActionPerformed
-        File home = new File(System.getProperty("user.home"));
-        //Now build a file chooser and invoke the dialog in one line of code
-        //"user-dir" is our unique key
-        File toAdd = new FileChooserBuilder("user-dir").
-                setTitle("Open File").
-                setDirectoriesOnly(true).
-                setDefaultWorkingDirectory(home).
-                setApproveText("Open").
-                showOpenDialog();
-        //Result will be null if the user clicked cancel or closed the dialog w/o OK
-        if (toAdd != null) {
-            final String path = toAdd.getPath();
-            locationField.setText(path);
+        File file = new FileChooserBuilder(YeomanPanel.class)
+                .setFilesOnly(true)
+                .setTitle(Bundle.YeomanOptionsPanel_browse_title())
+                .showOpenDialog();
+        if (file != null) {
+            yeomanPathTextField.setText(file.getAbsolutePath());
         }
+//        File home = new File(System.getProperty("user.home"));
+//        //Now build a file chooser and invoke the dialog in one line of code
+//        //"user-dir" is our unique key
+//        File toAdd = new FileChooserBuilder("user-dir").
+//                setTitle("Open File").
+//                setDirectoriesOnly(true).
+//                setDefaultWorkingDirectory(home).
+//                setApproveText("Open").
+//                showOpenDialog();
+//        //Result will be null if the user clicked cancel or closed the dialog w/o OK
+//        if (toAdd != null) {
+//            final String path = toAdd.getPath();
+//            locationField.setText(path);
+//        }
     }//GEN-LAST:event_yoFolderBrowseButtonActionPerformed
 
     public static final String EXECUTABLE_NAME = "yo"; // NOI18N
@@ -98,7 +105,7 @@ final class YeomanPanel extends javax.swing.JPanel {
         if (sassPaths.isEmpty()) {
             StatusDisplayer.getDefault().setStatusText(Bundle.YeomanOptionsPanel_executable_notFound());
         } else {
-            locationField.setText(sassPaths.get(0));
+            yeomanPathTextField.setText(sassPaths.get(0));
         }
     }//GEN-LAST:event_yeomanPathBrowseButtonActionPerformed
 
@@ -118,7 +125,7 @@ final class YeomanPanel extends javax.swing.JPanel {
         // Preferences.userNodeForPackage(YeomanPanel.class).putBoolean("someFlag", someCheckBox.isSelected());
         // or for org.openide.util with API spec. version >= 7.4:
         // NbPreferences.forModule(YeomanPanel.class).putBoolean("someFlag", someCheckBox.isSelected());
-        NbPreferences.forModule(YoConfigurationVisualPanel.class).put("yoExecutableLocation", locationField.getText());
+        NbPreferences.forModule(YoConfigurationVisualPanel.class).put("yoExecutableLocation", yeomanPathTextField.getText());
 
         // or:
         // SomeSystemOption.getDefault().setSomeStringProperty(someTextField.getText());
@@ -131,8 +138,8 @@ final class YeomanPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField locationField;
     private javax.swing.JButton yeomanPathBrowseButton;
+    private javax.swing.JTextField yeomanPathTextField;
     private javax.swing.JButton yoFolderBrowseButton;
     // End of variables declaration//GEN-END:variables
 }
