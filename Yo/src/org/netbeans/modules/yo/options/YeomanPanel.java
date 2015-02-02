@@ -2,6 +2,7 @@ package org.netbeans.modules.yo.options;
 
 import java.io.File;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.netbeans.modules.yo.wizard.YoConfigurationVisualPanel;
 import org.openide.awt.StatusDisplayer;
 import org.openide.filesystems.FileChooserBuilder;
@@ -91,7 +92,8 @@ final class YeomanPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_yeomanPathBrowseButtonActionPerformed
 
     void load() {
-        NbPreferences.forModule(YoConfigurationVisualPanel.class).get("yoExecutableLocation", "");
+        String yo = NbPreferences.forModule(YoConfigurationVisualPanel.class).get("yoExecutableLocation", "");
+        yeomanPathTextField.setText(yo);
     }
 
     void store() {
