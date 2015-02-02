@@ -1,6 +1,7 @@
 package org.netbeans.modules.yo.template;
 
 import java.awt.Component;
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -40,6 +41,7 @@ import org.netbeans.api.templates.TemplateRegistration;
 import org.netbeans.modules.yo.template2.YeomanSettingsWizardPanel;
 import org.netbeans.modules.yo.wizard.YoConfigurationVisualPanel;
 import org.openide.awt.StatusDisplayer;
+import org.openide.filesystems.FileLock;
 import org.openide.filesystems.FileObject;
 import org.openide.filesystems.FileUtil;
 import org.openide.util.Exceptions;
@@ -163,10 +165,42 @@ public class YeomanWizardIterator implements WizardDescriptor.ProgressInstantiat
         if (dir.getFileObject("pom.xml") == null) {
             FileObject nbprojectFolder = dir.createFolder("nbproject");
             FileObject projectXML = nbprojectFolder.createData("project", "xml");
-            FileObject projectProperties = nbprojectFolder.createData("project", "properties");
+            writeTemplate(projectXML,selectedGenerator);
+//            FileObject projectProperties = nbprojectFolder.createData("project", "properties");
+            Project p = FileOwnerQuery.getOwner(dir);
+            OpenProjects.getDefault().open(new Project[]{p}, true, true);
         } else {
             Project p = FileOwnerQuery.getOwner(dir);
             OpenProjects.getDefault().open(new Project[]{p}, true, true);
+        }
+    }
+
+    private void writeTemplate(FileObject obj, String name) {
+        FileLock fileLock = null;
+        OutputStreamWriter osw;
+        try {
+            fileLock = obj.lock();
+            OutputStream fout = obj.getOutputStream(fileLock);
+            OutputStream bout = new BufferedOutputStream(fout);
+            osw = new OutputStreamWriter(bout, "UTF-8");
+            osw.write(
+                    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+                    + "<project xmlns=\"http://www.netbeans.org/ns/project/1\">\n"
+                    + "    <type>org.netbeans.modules.web.clientproject</type>\n"
+                    + "    <configuration>\n"
+                    + "        <data xmlns=\"http://www.netbeans.org/ns/clientside-project/1\">\n"
+                    + "            <name>"+name+"</name>\n"
+                    + "        </data>\n"
+                    + "    </configuration>\n"
+                    + "</project>"
+            );
+            osw.flush();
+            osw.close();
+        } catch (IOException ex) {
+        } finally {
+            if (fileLock != null) {
+                fileLock.releaseLock();
+            }
         }
     }
 
