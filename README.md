@@ -15,6 +15,7 @@ Strikethrough means the issue has been fixed.
 <ul>
 <li>Try the plugin on Linux and Mac OSX.</li>
 <li>Move the Yeoman generator installation panel into the Options window.</li>
+<li>Make it possible to specify the location of the repository containing the generators.</li>
 <li>Reuse Node.js npm executable definition from NetBeans IDE.</li>
 <li>Somehow enable the user to interact with the generator's input requirements.</li>
 <li>Try out all the generators and all the commands.</li>
