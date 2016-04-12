@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
 import org.openide.explorer.ExplorerManager;
 import org.openide.explorer.view.BeanTreeView;
 import org.openide.nodes.AbstractNode;
@@ -15,12 +14,11 @@ import org.openide.nodes.Node;
 public class InstalledGeneratorsPanel extends JPanel implements ExplorerManager.Provider {
 
     private final ExplorerManager em = new ExplorerManager();
-    private String selectedGenerator;
     private final InstalledGeneratorsChildFactory iccf;
 
     public InstalledGeneratorsPanel() {
         setLayout(new BorderLayout());
-        setBorder(new TitledBorder(new LineBorder(Color.BLACK, 1), "Installed Commands"));
+        setBorder(new LineBorder(Color.BLACK, 1));
         BeanTreeView installedCommandsView = new BeanTreeView();
         installedCommandsView.setPreferredSize(new Dimension(this.getWidth(),100));
         installedCommandsView.setRootVisible(false);
@@ -30,7 +28,7 @@ public class InstalledGeneratorsPanel extends JPanel implements ExplorerManager.
         add(installedCommandsView, BorderLayout.CENTER);
         em.setRootContext(rootNode);
     }
-    
+
     @Override
     public ExplorerManager getExplorerManager() {
         return em;
@@ -39,5 +37,5 @@ public class InstalledGeneratorsPanel extends JPanel implements ExplorerManager.
     public String getSelectedGenerator() {
         return iccf.getSelectedGenerator();
     }
-    
+
 }

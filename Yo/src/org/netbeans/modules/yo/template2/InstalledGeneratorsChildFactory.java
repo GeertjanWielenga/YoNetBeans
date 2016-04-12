@@ -39,7 +39,7 @@ class InstalledGeneratorsChildFactory extends ChildFactory<YeomanGeneratorObject
         });
         for (String nodeModule : nodeModules) {
             if (nodeModule.startsWith("generator-")) {
-                list.add(new YeomanGeneratorObject(nodeModule + " (" + nodeModule.replace("generator-", "") + ")"));
+                list.add(new YeomanGeneratorObject(nodeModule.replace("generator-", "")));
             }
         }
         return true;
