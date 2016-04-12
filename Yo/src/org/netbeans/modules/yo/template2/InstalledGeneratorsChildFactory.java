@@ -27,10 +27,6 @@ class InstalledGeneratorsChildFactory extends ChildFactory<YeomanGeneratorObject
     @StaticResource
     private static final String YO = "org/netbeans/modules/yo/resources/YoIcon.png";
 
-    public InstalledGeneratorsChildFactory() {
-        YeomanHelpParser.parseYoHelp();
-    }
-
     @Override
     protected boolean createKeys(List<YeomanGeneratorObject> list) {
         String yo = NbPreferences.forModule(YoConfigurationVisualPanel.class).get("yoExecutableLocation", "");
