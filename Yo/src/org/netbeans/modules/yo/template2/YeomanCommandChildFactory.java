@@ -2,7 +2,6 @@ package org.netbeans.modules.yo.template2;
 
 import java.beans.IntrospectionException;
 import java.io.File;
-import java.util.Arrays;
 import java.util.List;
 import org.openide.filesystems.FileObject;
 import org.openide.filesystems.FileUtil;
@@ -23,7 +22,11 @@ class YeomanCommandChildFactory extends ChildFactory<FileObject> {
     protected boolean createKeys(List<FileObject> list) {
         FileObject generatorsFolder = FileUtil.toFileObject(new File(bean.getGeneratorsPath()));
         System.out.println("generatorsFolder = " + generatorsFolder);
-        list.addAll(Arrays.asList(generatorsFolder.getChildren()));
+        for (FileObject candidateCommandFolder : generatorsFolder.getChildren()) {
+            if (candidateCommandFolder.getFileObject("templates") != null) {
+                list.add(candidateCommandFolder);
+            }
+        }
         return true;
     }
 
