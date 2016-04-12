@@ -1,14 +1,7 @@
 package org.netbeans.modules.yo.wizard;
 
-import java.io.File;
-import java.util.Enumeration;
-import javax.swing.AbstractButton;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
-import org.netbeans.modules.yo.utils.ShortcutEnterPanel;
-import org.netbeans.modules.yo.utils.WizardUtils;
-import org.openide.filesystems.FileChooserBuilder;
-import org.openide.util.NbPreferences;
 
 public final class YoConfigurationVisualPanel extends JPanel {
 
