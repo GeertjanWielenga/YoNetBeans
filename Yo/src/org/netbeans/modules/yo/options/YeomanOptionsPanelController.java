@@ -8,9 +8,10 @@ import org.openide.util.HelpCtx;
 import org.openide.util.Lookup;
 
 @OptionsPanelController.SubRegistration(
+        location = "Html5",
         displayName = "#AdvancedOption_DisplayName_Yeoman",
         keywords = "#AdvancedOption_Keywords_Yeoman",
-        keywordsCategory = "Advanced/Yeoman"
+        keywordsCategory = "Html5/Yeoman"
 )
 @org.openide.util.NbBundle.Messages({"AdvancedOption_DisplayName_Yeoman=Yeoman", "AdvancedOption_Keywords_Yeoman=Yeoman"})
 public final class YeomanOptionsPanelController extends OptionsPanelController {
