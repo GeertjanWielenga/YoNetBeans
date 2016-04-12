@@ -19,7 +19,7 @@ import org.openide.util.lookup.Lookups;
 class InstalledCommandChildFactory extends ChildFactory<YeomanGeneratorObject> {
 
     private String selectedGenerator = "";
-    
+
     @StaticResource
     private static final String YO = "org/netbeans/modules/yo/resources/YoIcon.png";
 
@@ -37,9 +37,9 @@ class InstalledCommandChildFactory extends ChildFactory<YeomanGeneratorObject> {
 
     @Override
     protected Node createNodeForKey(final YeomanGeneratorObject key) {
-        YeomanCommandNod3 node = null;
+        YeomanCommandNode node = null;
         try {
-            node = new YeomanCommandNod3(key);
+            node = new YeomanCommandNode(key);
         } catch (IntrospectionException ex) {
             Exceptions.printStackTrace(ex);
         }
@@ -50,9 +50,9 @@ class InstalledCommandChildFactory extends ChildFactory<YeomanGeneratorObject> {
         return selectedGenerator;
     }
 
-    private class YeomanCommandNod3 extends BeanNode {
+    private class YeomanCommandNode extends BeanNode {
 
-        public YeomanCommandNod3(YeomanGeneratorObject bean) throws IntrospectionException {
+        public YeomanCommandNode(YeomanGeneratorObject bean) throws IntrospectionException {
             super(bean, Children.LEAF, Lookups.singleton(bean));
             setDisplayName(bean.getName());
             setShortDescription(bean.getWebsite());
