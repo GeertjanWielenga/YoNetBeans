@@ -3,10 +3,13 @@ package org.netbeans.modules.yo.template2;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.beans.IntrospectionException;
+import java.io.File;
+import java.io.FilenameFilter;
 import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import org.netbeans.api.annotations.common.StaticResource;
+import org.netbeans.modules.yo.wizard.YoConfigurationVisualPanel;
 import org.openide.awt.StatusDisplayer;
 import org.openide.nodes.BeanNode;
 import org.openide.nodes.ChildFactory;
@@ -14,6 +17,7 @@ import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.Exceptions;
 import org.openide.util.ImageUtilities;
+import org.openide.util.NbPreferences;
 import org.openide.util.lookup.Lookups;
 
 class InstalledCommandChildFactory extends ChildFactory<YeomanGeneratorObject> {
@@ -29,8 +33,18 @@ class InstalledCommandChildFactory extends ChildFactory<YeomanGeneratorObject> {
 
     @Override
     protected boolean createKeys(List<YeomanGeneratorObject> list) {
-        for (String installedYoCommand : YeomanHelpParser.getAvailableYoCommands()) {
-            list.add(new YeomanGeneratorObject(installedYoCommand));
+        String yo = NbPreferences.forModule(YoConfigurationVisualPanel.class).get("yoExecutableLocation", "");
+        File yoInstalledPath = new File(yo.replace("yo.cmd", "node_modules"));
+        String[] nodeModules = yoInstalledPath.list(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return new File(dir, name).isDirectory();
+            }
+        });
+        for (String nodeModule : nodeModules) {
+            if (nodeModule.startsWith("generator-")) {
+                list.add(new YeomanGeneratorObject(nodeModule + " (" + nodeModule.replace("generator-", "") + ")"));
+            }
         }
         return true;
     }
