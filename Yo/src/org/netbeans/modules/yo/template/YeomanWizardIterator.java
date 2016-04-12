@@ -31,7 +31,6 @@ import org.netbeans.api.extexecution.input.LineProcessor;
 import org.netbeans.api.extexecution.print.ConvertedLine;
 import org.netbeans.api.extexecution.print.LineConvertor;
 import org.netbeans.api.progress.ProgressHandle;
-import org.netbeans.api.progress.ProgressHandleFactory;
 import org.netbeans.api.progress.ProgressUtils;
 import org.netbeans.api.project.FileOwnerQuery;
 import org.netbeans.api.project.Project;
@@ -55,7 +54,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 @TemplateRegistration(position = 300, folder = "Project/ClientSide", displayName = "#Yeoman_displayName", description = "../resources/YeomanWizardDescription.html", iconBase = "org/netbeans/modules/yo/resources/yo.png", content = "../resources/EmptyProject.zip")
-@NbBundle.Messages("Yeoman_displayName=HTML5 Application from Yeoman")
+@NbBundle.Messages("Yeoman_displayName=HTML5/JS Application from Yeoman")
 public class YeomanWizardIterator implements WizardDescriptor.ProgressInstantiatingIterator {
 
     private int index;
