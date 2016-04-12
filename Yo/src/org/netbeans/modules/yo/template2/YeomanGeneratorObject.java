@@ -12,12 +12,18 @@ public class YeomanGeneratorObject {
     String updated;
     int forks;
     boolean installed;
+    private String generatorsPath;
 
-    public YeomanGeneratorObject(String name) {
+    public YeomanGeneratorObject(String name, String generatorsPath) {
         this.name = name;
         this.installed = true;
+        this.generatorsPath = generatorsPath;
     }
-    
+
+    public String getGeneratorsPath() {
+        return generatorsPath;
+    }
+
     public YeomanGeneratorObject(int stars,boolean installed,String name, String description, String owner, String website, String ownerWebsite) {
         this.installed = installed;
         this.name = name;
@@ -35,7 +41,7 @@ public class YeomanGeneratorObject {
     public void setInstalled(boolean installed) {
         this.installed = installed;
     }
-    
+
     public String getName() {
         return name;
     }

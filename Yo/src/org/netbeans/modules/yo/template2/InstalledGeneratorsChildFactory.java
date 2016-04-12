@@ -30,8 +30,8 @@ class InstalledGeneratorsChildFactory extends ChildFactory<YeomanGeneratorObject
     @Override
     protected boolean createKeys(List<YeomanGeneratorObject> list) {
         String yo = NbPreferences.forModule(YoConfigurationVisualPanel.class).get("yoExecutableLocation", "");
-        File yoInstalledPath = new File(yo.replace("yo.cmd", "node_modules"));
-        String[] nodeModules = yoInstalledPath.list(new FilenameFilter() {
+        File nodeModulesPath = new File(yo.replace("yo.cmd", "node_modules"));
+        String[] nodeModules = nodeModulesPath.list(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
                 return new File(dir, name).isDirectory();
@@ -39,7 +39,9 @@ class InstalledGeneratorsChildFactory extends ChildFactory<YeomanGeneratorObject
         });
         for (String nodeModule : nodeModules) {
             if (nodeModule.startsWith("generator-")) {
-                list.add(new YeomanGeneratorObject(nodeModule.replace("generator-", "")));
+                String generatorsModulePath = nodeModulesPath+File.separator+nodeModule+File.separator+"generators";
+                System.out.println("generatorsModulePath = " + generatorsModulePath);
+                list.add(new YeomanGeneratorObject(nodeModule.replace("generator-", ""), generatorsModulePath));
             }
         }
         return true;
@@ -47,9 +49,9 @@ class InstalledGeneratorsChildFactory extends ChildFactory<YeomanGeneratorObject
 
     @Override
     protected Node createNodeForKey(final YeomanGeneratorObject key) {
-        YeomanCommandNode node = null;
+        YeomanGeneratorNode node = null;
         try {
-            node = new YeomanCommandNode(key);
+            node = new YeomanGeneratorNode(key);
         } catch (IntrospectionException ex) {
             Exceptions.printStackTrace(ex);
         }
@@ -60,10 +62,10 @@ class InstalledGeneratorsChildFactory extends ChildFactory<YeomanGeneratorObject
         return selectedGenerator;
     }
 
-    private class YeomanCommandNode extends BeanNode {
+    private class YeomanGeneratorNode extends BeanNode {
 
-        public YeomanCommandNode(YeomanGeneratorObject bean) throws IntrospectionException {
-            super(bean, Children.LEAF, Lookups.singleton(bean));
+        public YeomanGeneratorNode(YeomanGeneratorObject bean) throws IntrospectionException {
+            super(bean, Children.create(new YeomanCommandChildFactory(bean), true), Lookups.singleton(bean));
             setDisplayName(bean.getName());
             setShortDescription(bean.getWebsite());
         }
