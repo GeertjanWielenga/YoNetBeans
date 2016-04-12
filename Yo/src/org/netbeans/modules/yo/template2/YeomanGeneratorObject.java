@@ -24,16 +24,6 @@ public class YeomanGeneratorObject {
         return generatorsPath;
     }
 
-    public YeomanGeneratorObject(int stars,boolean installed,String name, String description, String owner, String website, String ownerWebsite) {
-        this.installed = installed;
-        this.name = name;
-        this.description = description;
-        this.owner = owner;
-        this.website = website;
-        this.stars = stars;
-        this.ownerWebsite = ownerWebsite;
-    }
-
     public boolean isInstalled() {
         return installed;
     }
