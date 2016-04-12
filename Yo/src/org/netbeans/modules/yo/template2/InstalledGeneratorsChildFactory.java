@@ -20,14 +20,14 @@ import org.openide.util.ImageUtilities;
 import org.openide.util.NbPreferences;
 import org.openide.util.lookup.Lookups;
 
-class InstalledCommandChildFactory extends ChildFactory<YeomanGeneratorObject> {
+class InstalledGeneratorsChildFactory extends ChildFactory<YeomanGeneratorObject> {
 
     private String selectedGenerator = "";
 
     @StaticResource
     private static final String YO = "org/netbeans/modules/yo/resources/YoIcon.png";
 
-    public InstalledCommandChildFactory() {
+    public InstalledGeneratorsChildFactory() {
         YeomanHelpParser.parseYoHelp();
     }
 

@@ -5,11 +5,11 @@ import javax.swing.JPanel;
 
 class YeomanSettingsPanelVisual extends JPanel {
 
-    InstalledCommandPanel icp;
+    InstalledGeneratorsPanel icp;
 
     public YeomanSettingsPanelVisual() {
         setLayout(new BorderLayout());
-        icp = new InstalledCommandPanel();
+        icp = new InstalledGeneratorsPanel();
 //        add(icp);
 //        add(new AllGeneratorsPanel());
 //        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT,icp, new AllGeneratorsPanel());

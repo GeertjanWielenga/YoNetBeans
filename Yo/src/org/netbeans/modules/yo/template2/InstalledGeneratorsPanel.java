@@ -12,19 +12,19 @@ import org.openide.nodes.AbstractNode;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 
-public class InstalledCommandPanel extends JPanel implements ExplorerManager.Provider {
+public class InstalledGeneratorsPanel extends JPanel implements ExplorerManager.Provider {
 
     private final ExplorerManager em = new ExplorerManager();
     private String selectedGenerator;
-    private final InstalledCommandChildFactory iccf;
+    private final InstalledGeneratorsChildFactory iccf;
 
-    public InstalledCommandPanel() {
+    public InstalledGeneratorsPanel() {
         setLayout(new BorderLayout());
         setBorder(new TitledBorder(new LineBorder(Color.BLACK, 1), "Installed Commands"));
         BeanTreeView installedCommandsView = new BeanTreeView();
         installedCommandsView.setPreferredSize(new Dimension(this.getWidth(),100));
         installedCommandsView.setRootVisible(false);
-        iccf = new InstalledCommandChildFactory();
+        iccf = new InstalledGeneratorsChildFactory();
         Children kids = Children.create(iccf, true);
         Node rootNode = new AbstractNode(kids);
         add(installedCommandsView, BorderLayout.CENTER);
